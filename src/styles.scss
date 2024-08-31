@@ -1,1 +1,219 @@
-/* You can add global styles to this file, and also import other style files */
+@import "./fonts.scss";
+
+$background: #525561;
+$background-input: #323644;
+$background-frame: #272a37;
+
+$main-color: #1d90f5;
+$main-color-50: #eefaff;
+$main-color-100: #d9f2ff;
+$main-color-200: #bceaff;
+$main-color-300: #8edeff;
+$main-color-400: #58c9ff;
+$main-color-500: #32adff;
+$main-color-600: #1d90f5;
+$main-color-700: #1477e1;
+$main-color-800: #175fb6;
+$main-color-900: #19518f;
+$main-color-950: #143257;
+
+
+$btn-primary: #1d90f5;
+$btn-icon: #757889;
+$btn-secondary: #555b69;
+
+$text-primary: #1d90f5;
+$text-color: #fff;
+$text-light: #b0b1c4;
+$text-dark: #424656;
+
+$color-red: #f2657e;
+$color-green: #90e150;
+$color-yellow: #fcb12a;
+
+$shadow-headers: 0 4px 2px 0 rgba(0,0,0,0.12);
+
+
+html, body {
+    margin: 0;
+}
+
+body {
+    height: 100vh;
+    width: 100%;
+    color: $text-color;
+    overflow: hidden;
+}
+
+* {
+    margin: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    box-sizing: border-box;
+    font-family: "Nunito", sans-serif;
+    scroll-behavior: smooth;
+    outline: none;
+}
+
+input:is(:autofill),
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active {
+    background-color: $background-input !important;
+    -webkit-box-shadow: 0 0 0 3px $background-frame inset, 0 0 0 5px $color-yellow inset, 0 0 0 45px $background-frame inset !important;
+    -webkit-text-fill-color: $text-color !important;
+    font-size: 16px;
+}
+
+
+.btn-primary {
+    padding: 15px 25px;
+    max-width: fit-content;
+    min-width: 150px;
+    width: 100%;
+    background-color: $main-color;
+    border-radius: 10px;
+    border: 2px solid $main-color;
+    color: $text-color;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .2s ease;
+    &:hover {
+        background-color: $main-color-500;
+        border-color: $main-color-500;
+    }
+    &:disabled {
+        background-color: $text-light;
+        border-color: $text-light;
+        color: #000;
+    }
+}
+
+
+.btn-secondary {
+    padding: 15px 25px;
+    max-width: fit-content;
+    min-width: 150px;
+    width: 100%;
+    background-color: $background-frame;
+    border-radius: 10px;
+    border: 2px solid $text-light;
+    color: $text-color;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all .2s ease;
+    &:hover {
+        background-color: $background-input;
+        border-color: $main-color;
+    }
+    &:disabled {
+        background-color: $text-dark;
+        border-color: $background-input;
+    }
+}
+
+
+.form-element-label {
+    input::placeholder, textarea::placeholder {
+        opacity: 0.9;
+        color: #fff;
+    }
+    // @include top-placeholder(attr(top));
+    &::before {
+        z-index: 2;
+        // content: $value
+        content: attr(top);
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        padding: 0 5px;
+        height: fit-content;
+        font-size: 16px;
+        white-space: nowrap;
+        color: #fff;
+        background-color: $background-frame;
+        border-radius: 5px;
+        box-sizing: border-box;
+        opacity: 0.0;
+        pointer-events: none;
+    }
+    &:has(:focus)::before {
+        opacity: 1;
+        top: -11px;
+        transition: opacity .1s ease-in-out, top .1s ease-in-out;
+    }
+    .form-element:focus::placeholder {
+        opacity: 0;
+        transition: opacity .1s ease-in-out;
+    }
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    span {
+        // display: none;
+        font-size: 12px;
+        color: $color-red;
+        opacity: 0;
+    }
+    &::after {
+        position: absolute;
+        content: 'X';
+        top: 15px;
+        right: 25px;
+        width: 25px;
+        height: 26px;
+    }
+    &:not(:has(:focus)) {
+        &::after {
+            content: url('/assets/img/design/icon_input_empty.png');
+        }
+    }
+    &:has(:focus:valid) {
+        &::after {
+            content: url('/assets/img/design/icon_input_done.png');
+        }
+    }
+    &:has(:focus:invalid), &:has(.form-element:not(:focus, :placeholder-shown, :valid)) {
+        &::after {
+            content: url('/assets/img/design/icon_input_err.png');
+        }
+        span {
+            // display: inline;
+            opacity: 1;
+        }
+    }
+    .form-element {
+        width: 100%;
+        position: relative;
+        padding: 15px 55px 15px 25px;
+        border-radius: 10px;
+        border: 1px solid $main-color;
+        background-color: $background-frame;
+        color: white;
+        font-size: 16px;
+        outline: none;
+        transition: border-color 0.9s ease;
+        &:hover {
+            border-color: $color-green;
+            transition: border-color 0.2s ease;
+        }
+        &::placeholder {
+            color: white;
+        }
+        &:focus, &:focus-visible, &:focus:valid, &:valid {
+            border-color: $color-green;
+        }
+        &:focus:invalid, &:not(:focus:placeholder-shown):invalid {
+            border-color: $color-red;
+        }
+        &:not(:focus):placeholder-shown:invalid {
+            border-color: $main-color;
+        }
+    }
+
+}
+
+
+
+
