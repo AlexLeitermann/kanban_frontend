@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { NavmenuComponent } from '../navmenu/navmenu.component';
 import { HeaderComponent } from '../header/header.component';
 import { BackendApiService } from '../../services/backend-api.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { lastValueFrom } from 'rxjs';
+import { HttpClientModule } from '@angular/common/http';
 import { TaskItemComponent } from '../task-item/task-item.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -19,31 +18,39 @@ import { TaskItemComponent } from '../task-item/task-item.component';
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
-export class BoardComponent implements OnInit {
-    tasks:any = []
+export class BoardComponent implements OnInit, OnChanges {
+    public tasks:any[] = [];
+    private tasksSub = new Subscription();
+
+    public dbTasks$: any;
+
     constructor(
-        private backend: BackendApiService,
-        private http: HttpClient,
+        public backend: BackendApiService,
     ) {}
 
     async ngOnInit() {
-        await this.getAllTasks();
-        // throw new Error('Method not implemented.');
-    }
-    
-    async getAllTasks() {
-        // let resp = await this.getMyTasks();
-        // console.log('Antwort: ', resp);
-        this.backend.fetchAndLogTasks();
+        this.tasksSub = this.subTasks();
+        this.getAllTasks();
     }
 
-    public getMyTasks(): Promise<any> {
-        const url = environment.baseURL + "/tasks/";
-        console.log('URL:', url);
-        
-        const headers = {headers:{'Content-Type':'application/json; charset=utf-8'}};
-        
-        return lastValueFrom(this.http.get(url));
+    ngOnDestroy() {
+        this.tasksSub.unsubscribe();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.getAllTasks();
+    }
+
+    subTasks(): Subscription {
+        return this.backend.tasks$.subscribe( (tasks) => {
+            this.tasks = tasks;
+        });
+    }
+    
+    getAllTasks() {
+        this.backend.getTasksFromApi().subscribe(async (result) => {
+            this.dbTasks$=result;
+        });
     }
 
 }

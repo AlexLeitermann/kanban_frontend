@@ -1,1 +1,40 @@
-<p>register works!</p>
+<div class="background">
+    <div class="content-frame">
+        <div class="content-left">
+            <div class="content-left-header">
+                <div class="logo-box">
+                    <img src="/assets/img/favicon.png">
+                </div>
+                <div class="title">
+                    <span>LINK</span>
+                </div>
+            </div>
+            <div class="content-left-container">
+                <span class="login-title">Registrieren</span>
+                <form class="form-login" autocomplete="off">
+                    <div id="form-username-label" class="form-element-label" top="Vorname">
+                        <input type="text" name="firstname" id="form-firstname" class="form-element" placeholder="Vorname" required>
+                        <span>Benutzername ist erforderlich.</span>
+                    </div>
+                    <div id="form-username-label" class="form-element-label" top="Nachname">
+                        <input type="text" name="lastname" id="form-lastname" class="form-element" placeholder="Nachname" required>
+                        <span>Benutzername ist erforderlich.</span>
+                    </div>
+                    <div id="form-username-label" class="form-element-label" top="E-Mail">
+                        <input type="email" name="email" id="form-email" class="form-element" placeholder="E-Mail" required>
+                        <span>Benutzername ist erforderlich.</span>
+                    </div>
+                    <div id="form-password-label" class="form-element-label" top="Passwort">
+                        <input type="password" name="password" id="form-password" class="form-element" placeholder="Passwort" required>
+                        <span>Kein gültiges Passwort.</span>
+                    </div>
+                    <div class="form-element-btn-box">
+                        <button type="submit" class="btn-primary">Registrieren</button>
+                        <button type="button" class="btn-secondary" (click)="backToLogin()"><img src="/assets/img/left.svg"><span>Anmelden</span></button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="content-right"></div>
+    </div>
+</div>

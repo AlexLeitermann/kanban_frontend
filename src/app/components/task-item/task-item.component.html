@@ -1,1 +1,29 @@
-<p>task-item works!</p>
+<div class="taskitem-container">
+    <div class="taskitem-header">
+        <span>{{ taskItem.title }}</span>
+    </div>
+    <div class="taskitem-content">
+        <div class="ti-content-createdat">{{ taskItem.created_at  | date: 'dd.MM.yyyy, HH:mm' }}</div>
+        <div class="ti-content-author">{{ taskItem.author.username }}</div>
+        <div class="ti-content-description">{{ taskItem.description }}</div>
+        <div class="ti-content-color color-{{ taskItem.color }}"></div>
+    </div>
+    <div class="taskitem-footer">
+        <div class="ti-footer-navbox">
+            <div class="ti-footer-left">
+                @if ( taskItem.status > 0 ) {
+                    <div class="btn-img-box" (click)="moveRowLeft()">
+                        <img src="/assets/img/left.svg">
+                    </div>
+                }
+            </div>
+            <div class="ti-footer-right">
+                @if ( taskItem.status < 3 ) {
+                    <div class="btn-img-box" (click)="moveRowRight()">
+                        <img src="/assets/img/right.svg">
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

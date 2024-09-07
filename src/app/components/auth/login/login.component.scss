@@ -99,8 +99,18 @@
                                 justify-content: space-between;
                                 gap: 15px;
                             }
+                            .btn-secondary {
+                                display: flex;
+                                align-items: center;
+                                gap: 10px;
+                                img {
+                                    width: 24px;
+                                    height: 24px;
+                                    filter: invert(100%);
+                                }
+                            }
                         }
-                                        }
+                    }
                 }
             }
             .content-right {

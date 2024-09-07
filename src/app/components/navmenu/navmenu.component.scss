@@ -12,8 +12,11 @@
             font-size: 20px;
             transition: background-color .23s ease-in-out;
             cursor: pointer;
-            &:hover {
+            &.active {
                 background-color: $main-color-900;
+            }
+            &:hover {
+                background-color: $main-color-600;
             }
             a {
                 padding: 10px 25px;
@@ -21,6 +24,12 @@
                 width: 100%;
                 text-decoration: none;
                 color: #fff;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                img {
+                    height: 32px;
+                }
             }
         }
     }

@@ -1,0 +1,22 @@
+<div class="add-contact-container">
+    <div class="add-contact-title">
+        <h1>neuer Kontakt</h1>
+    </div>
+    <form class="add-contact-form" (ngSubmit)="onSubmit(addContact)" #addContact="ngForm">
+        <div class="add-contact-fields">
+            <div class="form-element-label" top="Name">
+                <input type="text" id="name" name="name" #name="ngModel" [(ngModel)]="dataAddContact.name" class="form-element" placeholder="Name">
+            </div>
+            <div class="form-element-label" top="E-Mail">
+                <input type="text" id="email" name="email" #email="ngModel" [(ngModel)]="dataAddContact.email" class="form-element" placeholder="E-Mail" pattern="[a-zA-Z0-9\.%_\+\-]{1,}[@][a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,}">
+            </div>
+            <div class="form-element-label" top="Telefon">
+                <input type="text" id="phone" name="phone" #phone="ngModel" [(ngModel)]="dataAddContact.phone" class="form-element" placeholder="Telefon">
+            </div>
+        </div>
+        <div class="btn-container">
+            <button type="button" class="btn-secondary" (click)="closeDialog()">Schließen</button>
+            <button type="submit" class="btn-primary">Erstellen</button>
+        </div>
+    </form>
+</div>

@@ -10,19 +10,19 @@
                 </div>
             </div>
             <div class="content-left-container">
-                <span class="login-title">Login</span>
+                <span class="login-title">Anmelden</span>
                 <form class="form-login" autocomplete="off">
-                    <div id="form-username-label" class="form-element-label" top="Benutzername">
-                        <input type="text" name="username" id="form-username" class="form-element" placeholder="Benutzername" required>
-                        <span>Benutzername ist erforderlich.</span>
+                    <div id="form-username-label" class="form-element-label" top="E-Mail">
+                        <input type="email" name="username" id="form-username" class="form-element" placeholder="Benutzername" required>
+                        <span>E-Mail ist erforderlich.</span>
                     </div>
                     <div id="form-password-label" class="form-element-label" top="Passwort">
                         <input type="password" name="password" id="form-password" class="form-element" placeholder="Passwort" required>
                         <span>Kein gültiges Passwort.</span>
                     </div>
                     <div class="form-element-btn-box">
-                        <button class="btn-primary">Login</button>
-                        <button class="btn-secondary">Registrieren</button>
+                        <button class="btn-primary">Anmelden</button>
+                        <button class="btn-secondary" (click)="navToRegister()"><span>Registrieren</span><img src="/assets/img/right.svg"></button>
                     </div>
                 </form>
             </div>

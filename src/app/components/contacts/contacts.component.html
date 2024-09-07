@@ -1,1 +1,39 @@
-<p>contacts works!</p>
+<div class="contacts-container">
+    <div class="contacts-header">
+        <h1>Kontakte</h1>
+    </div>
+    <div class="contacts-content">
+        <div class="content-left">
+            <div class="addcontact-container">
+                <button class="addcontact-btn btn-secondary" (click)="addContact()"><img src="/assets/img/contact_add.svg"><span>neuer Kontakt</span></button>
+            </div>
+            <div class="contact-list">
+                <ul>
+                    @for (cont of dbContacts$; track $index) {
+                        <li>
+                            <input type="radio" name="contactlist" id="contact-{{$index}}" (click)="viewSelectedContact($index)">
+                            <label for="contact-{{$index}}"><span>{{ cont.initials }}</span>{{ cont.name }}</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="content-separator"></div>
+        <div class="content-right">
+            @if (singleContact) {
+                <div class="contact-initials-box">
+                    <div class="contact-initials">{{ singleContact.initials }}</div>
+                </div>
+                <div class="contact-details">
+                    <div class="contact-name">{{ singleContact.name }}</div>
+                    <div class="contact-email">{{ singleContact.email }}</div>
+                    <div class="contact-phone">{{ singleContact.phone }}</div>
+                </div>
+                <div class="contact-details-btns">
+                    <button class="btn-primary small" (click)="editContact()">Bearbeiten</button>
+                    <button class="btn-secondary small" (click)="delContact()">Löschen</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

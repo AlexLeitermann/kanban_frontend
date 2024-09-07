@@ -1,8 +1,10 @@
 @import "./fonts.scss";
+@import "./color.scss";
 
 $background: #525561;
 $background-input: #323644;
 $background-frame: #272a37;
+$background-frame-50: #272a3780;
 
 $main-color: #1d90f5;
 $main-color-50: #eefaff;
@@ -67,6 +69,14 @@ input:-webkit-autofill:active {
 }
 
 
+ul {
+    padding-inline-start: 0;
+    li {
+        list-style: none;
+    }
+}
+
+
 .btn-primary {
     padding: 15px 25px;
     max-width: fit-content;
@@ -113,6 +123,15 @@ input:-webkit-autofill:active {
     }
 }
 
+.btn-primary, .btn-secondary {
+    &.small {
+        padding: 8px 12px;
+        min-width: 70px;
+        border-radius: 6px;
+        font-size: 14px;
+    }
+}
+
 
 .form-element-label {
     input::placeholder, textarea::placeholder {
@@ -156,33 +175,33 @@ input:-webkit-autofill:active {
         color: $color-red;
         opacity: 0;
     }
-    &::after {
-        position: absolute;
-        content: 'X';
-        top: 15px;
-        right: 25px;
-        width: 25px;
-        height: 26px;
-    }
-    &:not(:has(:focus)) {
-        &::after {
-            content: url('/assets/img/design/icon_input_empty.png');
-        }
-    }
-    &:has(:focus:valid) {
-        &::after {
-            content: url('/assets/img/design/icon_input_done.png');
-        }
-    }
-    &:has(:focus:invalid), &:has(.form-element:not(:focus, :placeholder-shown, :valid)) {
-        &::after {
-            content: url('/assets/img/design/icon_input_err.png');
-        }
-        span {
-            // display: inline;
-            opacity: 1;
-        }
-    }
+    // &::after {
+    //     position: absolute;
+    //     content: 'X';
+    //     top: 15px;
+    //     right: 25px;
+    //     width: 25px;
+    //     height: 26px;
+    // }
+    // &:not(:has(:focus)) {
+    //     &::after {
+    //         content: url('/assets/img/design/icon_input_empty.png');
+    //     }
+    // }
+    // &:has(:focus:valid) {
+    //     &::after {
+    //         content: url('/assets/img/design/icon_input_done.png');
+    //     }
+    // }
+    // &:has(:focus:invalid), &:has(.form-element:not(:focus, :placeholder-shown, :valid)) {
+    //     &::after {
+    //         content: url('/assets/img/design/icon_input_err.png');
+    //     }
+    //     span {
+    //         // display: inline;
+    //         opacity: 1;
+    //     }
+    // }
     .form-element {
         width: 100%;
         position: relative;
@@ -214,6 +233,19 @@ input:-webkit-autofill:active {
 
 }
 
+
+.dialogPanel {
+    .mat-mdc-dialog-container .mdc-dialog__surface {
+        border-radius: 30px;
+        background-color: transparent;
+    }
+}
+
+.dialogBackdropBackground {
+    background-color: #0000002b;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);       
+}
 
 
 
