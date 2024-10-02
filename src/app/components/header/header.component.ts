@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { BackendApiService } from '../../services/backend-api.service';
 
 @Component({
   selector: 'app-header',
@@ -8,5 +10,14 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+    constructor(
+        private router: Router,
+        private backend: BackendApiService,
+    ) {}
 
+    logout() {
+        this.backend.token = undefined;
+        localStorage.removeItem("link-token");
+        this.router.navigateByUrl('/login');
+    }
 }

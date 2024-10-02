@@ -1,1 +1,29 @@
-<p>pagenotfound works!</p>
+<div class="background">
+    <div class="content-frame">
+        <div class="content-left">
+            <div class="content-left-header">
+                <div class="logo-box">
+                    <img src="/assets/img/favicon.png">
+                </div>
+                <div class="title">
+                    <span>LINK</span>
+                </div>
+            </div>
+            <div class="content-left-container">
+                <span class="login-title">Seite nicht gefunden!</span>
+                <div class="description">
+                    <p>Sie haben versucht, eine Seite zu öffnen, die nicht gefunden wurde.</p>
+                    <p>Zum Fortfahren, wählen Sie bitte diese Option.</p>
+                </div>
+                <div class="form-element-btn-box">
+                    @if (isToken) {
+                        <button class="btn-primary" (click)="backToHome()">Hauptseite</button>
+                    } @else {
+                        <button class="btn-secondary" (click)="backToHome()"><img src="/assets/img/left.svg"><span>zum Login</span></button>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="content-right"></div>
+    </div>
+</div>

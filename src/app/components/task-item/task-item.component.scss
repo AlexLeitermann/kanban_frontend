@@ -12,7 +12,6 @@
         span {
             font-size: 20px;
             font-weight: 700;
-
         }
     }
     .taskitem-content {
@@ -60,3 +59,69 @@
         }
     }
 }
+
+
+@media screen and (max-width: 1024px) {
+    .taskitem-container {
+        .taskitem-header {
+            span {
+                font-size: 12px;
+            }
+        }
+        .taskitem-content {
+            font-size: 12px;
+            .ti-content-color {
+                content: '';
+            }
+        }
+        .taskitem-footer {
+            .ti-footer-navbox {
+                .btn-img-box {
+                    cursor: pointer;
+                    &:hover {
+                    }
+                    img {
+                    }
+                }
+            }
+        }
+        &:hover {
+            .taskitem-header {
+            }
+        }
+    }
+    
+}
+
+
+@media screen and (max-width: 768px) {
+    .taskitem-container {
+        .taskitem-header {
+            span {
+            }
+        }
+        .taskitem-content {
+            .ti-content-color {
+                content: '';
+            }
+        }
+        .taskitem-footer {
+            .ti-footer-navbox {
+                .btn-img-box {
+                    cursor: pointer;
+                    &:hover {
+                    }
+                    img {
+                    }
+                }
+            }
+        }
+        &:hover {
+            .taskitem-header {
+            }
+        }
+    }
+    
+}
+
+

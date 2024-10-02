@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
 import { environment } from '../environments/environment';
 import { BehaviorSubject, lastValueFrom, Observable, of } from 'rxjs';
@@ -16,8 +16,6 @@ export class BackendApiService implements OnInit {
     tasksObservable$:any;
     contactsObservable$:any;
 
-
-
     apiHeaders = {headers:{
         'Content-Type':'application/json',
         'Accept':'application/json',
@@ -25,6 +23,7 @@ export class BackendApiService implements OnInit {
 
     public tasks$ = this.tasksSubject.asObservable();
     public contacts$ = this.contactSubject.asObservable();
+    public token: string | undefined = undefined;
 
     constructor(private http: HttpClient) {}
 
@@ -35,6 +34,15 @@ export class BackendApiService implements OnInit {
             
         });
     }
+
+    getHeadersWithToken(): any {
+        return {
+            headers: {
+                ...this.apiHeaders.headers,
+                'Authorization': 'Token ' + this.token
+            }
+        };
+    }
     
     // #####################################################################################################
     // ----- API's -----------------------------------------------------------------------------------------
@@ -44,17 +52,17 @@ export class BackendApiService implements OnInit {
     
     getTasksFromApi(): Observable<any> {
         const url = environment.baseURL + "/tasks/";
-        return this.http.get<any>(url, this.apiHeaders);
+        return this.http.get<any>(url, this.getHeadersWithToken());
     }
     
     getContactsFromApi(): Observable<any> {
         const url = environment.baseURL + "/contacts/";
-        return this.http.get<any>(url, this.apiHeaders);
+        return this.http.get<any>(url, this.getHeadersWithToken());
     }
     
     getUsersFromApi(): Observable<any> {
         const url = environment.baseURL + "/users/";
-        return this.http.get<any>(url, this.apiHeaders);
+        return this.http.get<any>(url, this.getHeadersWithToken());
     }
     
     // #####################################################################################################
@@ -63,12 +71,12 @@ export class BackendApiService implements OnInit {
     
     postTaskToApi(taskData:any) {
         const url = environment.baseURL + "/tasks/";
-        return this.http.post<any>(url, taskData, this.apiHeaders);
+        return this.http.post<any>(url, taskData, this.getHeadersWithToken());
     }
     
     postContactToApi(contactData:any) {
         const url = environment.baseURL + "/contacts/";
-        return this.http.post<any>(url, contactData, this.apiHeaders);
+        return this.http.post<any>(url, contactData, this.getHeadersWithToken());
     }
     
     postUserToApi(userData:any) {
@@ -82,12 +90,12 @@ export class BackendApiService implements OnInit {
     
     putTaskToApi(taskData:any, taskID:number) {
         const url = environment.baseURL + "/tasks/" + taskID + "/";
-        return this.http.put<any>(url, taskData, this.apiHeaders);
+        return this.http.put<any>(url, taskData, this.getHeadersWithToken());
     }
     
     putContactToApi(contactData:any, contactID:number) {
         const url = environment.baseURL + "/contacts/" + contactID + "/";
-        return this.http.put<any>(url, contactData, this.apiHeaders);
+        return this.http.put<any>(url, contactData, this.getHeadersWithToken());
     }
     
     // #####################################################################################################
@@ -96,12 +104,27 @@ export class BackendApiService implements OnInit {
     
     deleteTaskApi(taskID:number) {
         const url = environment.baseURL + "/tasks/" + taskID + "/";
-        return this.http.delete<any>(url, this.apiHeaders);
+        return this.http.delete<any>(url, this.getHeadersWithToken());
     }
     
     deleteContactApi(contactID:number) {
         const url = environment.baseURL + "/contacts/" + contactID + "/";
-        return this.http.delete<any>(url, this.apiHeaders);
+        return this.http.delete<any>(url, this.getHeadersWithToken());
+    }
+    
+    // #####################################################################################################
+    // ----- LOGIN -----------------------------------------------------------------------------------------
+    // #####################################################################################################
+    
+    public loginOnApi(username: string, password: string): Promise<any> {
+        const url = environment.baseURL + "/login/";
+        const body ={
+            "username": username,
+            "password": password
+        };
+        const headers = {headers:{'Content-Type':'application/json; charset=utf-8'}};
+        
+        return lastValueFrom(this.http.post<any>(url,body,headers));
     }
 
 
@@ -187,17 +210,6 @@ export class BackendApiService implements OnInit {
         return this.deleteContactApi(contactItem.id);
     }
 
-
-    // public loginOnBackend(username: string, password: string): Promise<any> {
-    //     const url = environment.baseURL + "/login/";
-    //     const body ={
-    //         "username": username,
-    //         "password": password
-    //     };
-    //     const headers = {headers:{'Content-Type':'application/json; charset=utf-8'}};
-        
-    //     return lastValueFrom(this.http.post<any>(url,body,headers));
-    // }
 
 
 }

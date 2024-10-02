@@ -10,32 +10,38 @@
             <div class="form-element-label" top="Beschreibung">
                 <input type="text" id="description" name="description" class="form-element" placeholder="Beschreibung">
             </div>
-            <div class="form-element-label-row">
-                <div class="form-element-row">
-                    <input type="radio" id="color-0" name="color" class="form-element" required checked><label class="color-0" for="color-0">Typ 1</label>
-                </div>
-                <div class="form-element-row">
-                    <input type="radio" id="color-1" name="color" class="form-element" required><label class="color-1" for="color-1">Typ 2</label>
-                </div>
-                <div class="form-element-row">
-                    <input type="radio" id="color-2" name="color" class="form-element" required><label class="color-2" for="color-2">Typ 3</label>
-                </div>
-                <div class="form-element-row">
-                    <input type="radio" id="color-3" name="color" class="form-element" required><label class="color-3" for="color-3">Typ 4</label>
-                </div>
-                <div class="form-element-row">
-                    <input type="radio" id="color-4" name="color" class="form-element" required><label class="color-4" for="color-4">Typ 5</label>
+            <div class="task-type-box">
+                <h2>Typ</h2>
+                <div class="form-element-label-row task-color">
+                    <div class="form-element-row">
+                        <input type="radio" id="color-0" name="color" class="form-element" required checked><label class="color-0" for="color-0">1</label>
+                    </div>
+                    <div class="form-element-row">
+                        <input type="radio" id="color-1" name="color" class="form-element" required><label class="color-1" for="color-1">2</label>
+                    </div>
+                    <div class="form-element-row">
+                        <input type="radio" id="color-2" name="color" class="form-element" required><label class="color-2" for="color-2">3</label>
+                    </div>
+                    <div class="form-element-row">
+                        <input type="radio" id="color-3" name="color" class="form-element" required><label class="color-3" for="color-3">4</label>
+                    </div>
+                    <div class="form-element-row">
+                        <input type="radio" id="color-4" name="color" class="form-element" required><label class="color-4" for="color-4">5</label>
+                    </div>
                 </div>
             </div>
-            <div class="form-element-label">
-                <div class="form-element-row">
-                    <input type="radio" id="priority-high" name="priority" class="form-element" required><label for="priority-high"><img class="high" src="/assets/img/priority_2.svg"><span>Hoch</span></label>
-                </div>
-                <div class="form-element-row">
-                    <input type="radio" id="priority-medium" name="priority" class="form-element" required checked><label for="priority-medium"><img class="medium" src="/assets/img/priority_1.svg"><span>Normal</span></label>
-                </div>
-                <div class="form-element-row">
-                    <input type="radio" id="priority-low" name="priority" class="form-element" required><label for="priority-low"><img class="low" src="/assets/img/priority_0.svg"><span>Gering</span></label>
+            <div class="task-priority-box">
+                <h2>Priorität</h2>
+                <div class="form-element-label task-priority">
+                    <div class="form-element-row">
+                        <input type="radio" id="priority-low" name="priority" class="form-element" required><label for="priority-low"><img class="low" src="/assets/img/priority_0.svg"><span>Gering</span></label>
+                    </div>
+                    <div class="form-element-row">
+                        <input type="radio" id="priority-medium" name="priority" class="form-element" required checked><label for="priority-medium"><img class="medium" src="/assets/img/priority_1.svg"><span>Normal</span></label>
+                    </div>
+                    <div class="form-element-row">
+                        <input type="radio" id="priority-high" name="priority" class="form-element" required><label for="priority-high"><img class="high" src="/assets/img/priority_2.svg"><span>Hoch</span></label>
+                    </div>
                 </div>
             </div>
             <div class="form-element-label">

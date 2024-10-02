@@ -49,6 +49,9 @@
                     display: flex;
                     flex-direction: column;
                     gap: 8px;
+                    &.task-priority {
+                        flex-direction: row;
+                    }
                     .form-element-row {
                         display: flex;
                         flex-direction: row;
@@ -91,8 +94,20 @@
                                 img.low {
                                     content: url('/assets/img/priority_0_active.svg');
                                 }
-                                span {
-                                    color: $main-color;
+                                &:has(img.high) {
+                                    span {
+                                        color: $color-red;
+                                    }
+                                }
+                                &:has(img.medium) {
+                                    span {
+                                        color: $color-yellow;
+                                    }
+                                }
+                                &:has(img.low) {
+                                    span {
+                                        color: $color-green;
+                                    }
                                 }
                             }
                         }
@@ -131,6 +146,23 @@
                                 border: 1px solid $text-color;
                                 box-shadow: -2px -2px 4px $text-color inset, 2px 2px 4px #000 inset;
                             }
+                        }
+                    }
+                }
+                .task-type-box, .task-priority-box {
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    h2 {
+                        width: 100px;
+                    }
+                    .form-element-label.task-priority {
+                        flex-direction: row;
+                        gap: 30px;
+                        .form-element-row {
+                            padding: 10px 20px;
+                            border: 1px solid #808080;
+                            border-radius: 8px;
                         }
                     }
                 }

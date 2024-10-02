@@ -21,8 +21,11 @@ export class NavmenuComponent {
 
     async getRoute(newRoute: any) {
         if (newRoute == this.route.url) {
-            this.board.getAllTasks();
-            window.location.reload();
+            // Reload current route
+            this.route.navigateByUrl('/', {skipLocationChange:true})
+            .then(()=>{
+                this.route.navigate([`/${newRoute}`])
+            });
         }
     }
 }

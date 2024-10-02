@@ -41,8 +41,6 @@ export class AddcontactComponent {
     }
 
     async saveContact() {
-        console.log('AddContact - saveContact:', this.dataAddContact);
-        
         this.dataContact.name = this.dataAddContact.name;
         this.dataContact.initials = this.initialsFrom(this.dataAddContact.name);
         this.dataContact.email = this.dataAddContact.email;
@@ -50,7 +48,6 @@ export class AddcontactComponent {
         let res = this.backend.createContact(this.dataContact);
         console.log('saveAddContact:', res);
         this.closeDialog();
-            
     }
 
     initialsFrom(name: string):string {

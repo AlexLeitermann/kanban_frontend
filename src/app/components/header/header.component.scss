@@ -4,20 +4,63 @@
     width: 100%;
     height: 80px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 25px;
-    .logo-box {
+    .header-logo-title {
         display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
-        img {
-            height: 64px;
-            width: 64px;
+        gap: 25px;
+        .logo-box {
+            display: flex;
+            align-items: center;
+            img {
+                height: 64px;
+                width: 64px;
+            }
+        }
+        .title {
+            display: flex;
+            align-items: center;
+            span {
+                font-size: 36px;
+                font-weight: 700;
+            }
         }
     }
-    .title {
-        span {
-            font-size: 36px;
-            font-weight: 700;
+    .logout-box {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        img {
+            width: 32px;
+            height: 32px;
+        }
+        &:hover {
+            img {
+                content: url('/assets/img/logout_hover.svg');
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .header-content {
+        height: 50px;
+        .header-logo-title {
+            gap: 10px;
+            .logo-box {
+                img {
+                    height: 36px;
+                    width: 36px;
+                }
+            }
+            .title {
+                span {
+                    font-size: 22px;
+                }
+            }
         }
     }
 }

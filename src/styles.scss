@@ -57,6 +57,70 @@ body {
     outline: none;
 }
 
+@mixin scrollbar() {
+    &::-webkit-scrollbar {
+        width: 14px;
+        height: 14px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        width: 6px;
+        height: 6px;
+        border: 2px solid rgba(0, 0, 0, 0);
+        background-clip: padding-box;
+        border-radius: 99px;
+        background-color: $main-color;
+        box-shadow:
+            inset -1px -1px 0px rgba(0, 0, 0, 0.05),
+            inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &::-webkit-scrollbar-button {
+        width: 0;
+        height: 0;
+        display: none;
+    }
+
+    &::-webkit-scrollbar-corner {
+        background-color: transparent;
+    }
+    
+    @media screen and (max-width: 768px) {
+        &::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
+        }
+    
+        &::-webkit-scrollbar-thumb {
+            height: 4px;
+            border: 4px solid rgba(0, 0, 0, 0);
+            background-clip: padding-box;
+            border-radius: 7px;
+            background-color: $main-color;
+            box-shadow:
+                inset -1px -1px 0px rgba(0, 0, 0, 0.05),
+                inset 1px 1px 0px rgba(0, 0, 0, 0.05);
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    
+        &::-webkit-scrollbar-button {
+            width: 0;
+            height: 0;
+            display: none;
+        }
+    
+        &::-webkit-scrollbar-corner {
+            background-color: transparent;
+        }
+    }
+}
+
+
 input:is(:autofill),
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -170,38 +234,10 @@ ul {
     display: flex;
     flex-direction: column;
     span {
-        // display: none;
         font-size: 12px;
         color: $color-red;
         opacity: 0;
     }
-    // &::after {
-    //     position: absolute;
-    //     content: 'X';
-    //     top: 15px;
-    //     right: 25px;
-    //     width: 25px;
-    //     height: 26px;
-    // }
-    // &:not(:has(:focus)) {
-    //     &::after {
-    //         content: url('/assets/img/design/icon_input_empty.png');
-    //     }
-    // }
-    // &:has(:focus:valid) {
-    //     &::after {
-    //         content: url('/assets/img/design/icon_input_done.png');
-    //     }
-    // }
-    // &:has(:focus:invalid), &:has(.form-element:not(:focus, :placeholder-shown, :valid)) {
-    //     &::after {
-    //         content: url('/assets/img/design/icon_input_err.png');
-    //     }
-    //     span {
-    //         // display: inline;
-    //         opacity: 1;
-    //     }
-    // }
     .form-element {
         width: 100%;
         position: relative;
