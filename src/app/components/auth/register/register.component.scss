@@ -138,3 +138,46 @@
         }
     }
 }
+
+
+
+@media screen and (max-width: 768px) {
+    :host {
+        .background {
+            .content-frame {
+                .content-left {
+                    .content-left-header {
+                        .logo-box {
+                            img {
+                                width: 50px;
+                                height: 50px;
+                            }
+                        }
+                        .title {
+                            span {
+                                font-size: 32px;
+                            }
+                        }
+                    }
+                    .content-left-container {
+                        .login-title {
+                            font-size: 27px;
+                        }
+                        .form-login {
+                            .form-element-btn-box {
+                                gap: 8px;
+                                .btn-secondary {
+                                    gap: 5px;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+

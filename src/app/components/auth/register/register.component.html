@@ -12,25 +12,27 @@
             <div class="content-left-container">
                 <span class="login-title">Registrieren</span>
                 <form class="form-login" autocomplete="off" onsubmit="register()">
-                    <div id="form-username-label" class="form-element-label" top="Vorname">
-                        <input type="text" name="firstname" id="form-firstname" class="form-element" placeholder="Vorname" required>
-                        <span>Vorname ist erforderlich.</span>
-                    </div>
-                    <div id="form-username-label" class="form-element-label" top="Nachname">
-                        <input type="text" name="lastname" id="form-lastname" class="form-element" placeholder="Nachname" required>
-                        <span>Nachname ist erforderlich.</span>
-                    </div>
-                    <div id="form-username-label" class="form-element-label" top="E-Mail">
-                        <input type="email" name="email" id="form-email" class="form-element" placeholder="E-Mail" required>
-                        <span>E-Mail ist erforderlich.</span>
-                    </div>
-                    <div id="form-password-label" class="form-element-label" top="Neues Passwort">
-                        <input type="password" name="newpassword" id="form-password" class="form-element" minlength="8" placeholder="Neues Passwort" required>
-                        <span>Kein gültiges Passwort.</span>
-                    </div>
-                    <div id="form-password-label" class="form-element-label" top="Passwort wiederholen">
-                        <input type="password" name="confirmpassword" id="form-password" class="form-element" minlength="8" placeholder="Passwort wiederholen" required>
-                        <span>Kein gültiges Passwort.</span>
+                    <div class="form-input-box">
+                        <div id="form-firstname-label" class="form-element-label" top="Vorname">
+                            <input type="text" name="firstname" id="form-firstname" class="form-element" placeholder="Vorname" required>
+                            <span>Vorname ist erforderlich.</span>
+                        </div>
+                        <div id="form-lastname-label" class="form-element-label" top="Nachname">
+                            <input type="text" name="lastname" id="form-lastname" class="form-element" placeholder="Nachname" required>
+                            <span>Nachname ist erforderlich.</span>
+                        </div>
+                        <div id="form-email-label" class="form-element-label" top="E-Mail">
+                            <input type="email" name="email" id="form-email" class="form-element" placeholder="E-Mail" required>
+                            <span>E-Mail ist erforderlich.</span>
+                        </div>
+                        <div id="form-password-label" class="form-element-label" top="Neues Passwort">
+                            <input type="password" name="newpassword" id="form-password" class="form-element" minlength="8" placeholder="Neues Passwort" required>
+                            <span>Kein gültiges Passwort.</span>
+                        </div>
+                        <div id="form-password-repeat-label" class="form-element-label" top="Passwort wiederholen">
+                            <input type="password" name="confirmpassword" id="form-password-repeat" class="form-element" minlength="8" placeholder="Passwort wiederholen" required>
+                            <span>Kein gültiges Passwort.</span>
+                        </div>
                     </div>
                     <div class="form-element-btn-box">
                         <button type="submit" class="btn-primary">Registrieren</button>

@@ -21,13 +21,15 @@
         <div class="content-separator"></div>
         <div class="content-right">
             @if (singleContact) {
-                <div class="contact-initials-box">
-                    <div class="contact-initials">{{ singleContact.initials }}</div>
-                </div>
-                <div class="contact-details">
-                    <div class="contact-name">{{ singleContact.name }}</div>
-                    <div class="contact-email">{{ singleContact.email }}</div>
-                    <div class="contact-phone">{{ singleContact.phone }}</div>
+                <div class="contact-detail-box">
+                    <div class="contact-initials-box">
+                        <div class="contact-initials">{{ singleContact.initials }}</div>
+                    </div>
+                    <div class="contact-details">
+                        <div class="contact-name">{{ singleContact.name }}</div>
+                        <div class="contact-email">{{ singleContact.email }}</div>
+                        <div class="contact-phone">{{ singleContact.phone }}</div>
+                    </div>
                 </div>
                 <div class="contact-details-btns">
                     <button class="btn-primary small" (click)="editContact()">Bearbeiten</button>
