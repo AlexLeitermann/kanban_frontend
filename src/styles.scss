@@ -404,3 +404,41 @@ ul {
     }
 }
 
+@media screen and (max-width: 500px) {
+    // .btn-primary {
+    //     padding: 8px 12px;
+    //     min-width: auto;
+    //     font-size: 16px;
+    // }
+    // .btn-secondary {
+    //     padding: 8px 12px;
+    //     min-width: auto;
+    //     font-size: 16px;
+    // }
+    .form-element-label {
+        &::before {
+            // top: 15px;
+            // left: 7px;
+            // padding: 0 5px;
+            // height: fit-content;
+            font-size: 12px;
+            // white-space: nowrap;
+            // color: #fff;
+            // background-color: $background-frame;
+            // border-radius: 5px;
+            // box-sizing: border-box;
+            // opacity: 0.0;
+            // pointer-events: none;
+        }
+        &:has(:focus)::before {
+            // opacity: 1;
+            top: -9px;
+            // transition: opacity .1s ease-in-out, top .1s ease-in-out;
+        }
+        // .form-element {
+        //     padding: 8px 12px;
+        //     border-radius: 5px;
+        // }
+    }
+}
+

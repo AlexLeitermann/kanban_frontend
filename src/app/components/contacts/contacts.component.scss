@@ -355,6 +355,7 @@
             }
             .contacts-content {
                 flex-direction: column;
+                gap: 10px;
                 .content-left {
                     gap: 15px;
                     .addcontact-container {
@@ -368,7 +369,7 @@
                         }
                     }
                     .contact-list {
-                        max-height: 80px;
+                        max-height: 120px;
                         ul {
                             gap: 5px;
                             li {

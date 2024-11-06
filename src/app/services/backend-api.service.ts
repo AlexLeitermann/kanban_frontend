@@ -4,6 +4,7 @@ import { environment } from '../environments/environment';
 import { BehaviorSubject, lastValueFrom, Observable, of } from 'rxjs';
 import { Contact } from '../models/contact.class';
 import { Task } from '../models/task.class';
+import { User } from '../models/user.class';
 
 @Injectable({
     providedIn: 'root'
@@ -13,8 +14,10 @@ export class BackendApiService implements OnInit {
     private contactSubject = new BehaviorSubject<any[]>([]);
     tasks: Task[] = [];
     contacts: Contact[] = [];
-    tasksObservable$:any;
-    contactsObservable$:any;
+    users: User[] = [];
+    // tasksObservable$:any;
+    // contactsObservable$:any;
+    public currentUser = new User;
 
     apiHeaders = {headers:{
         'Content-Type':'application/json',
@@ -28,11 +31,9 @@ export class BackendApiService implements OnInit {
     constructor(private http: HttpClient) {}
 
     ngOnInit(): void {
-        this.getContactsFromApi().subscribe((item) => {
-            this.contacts = item;
-            // console.log('backend.service - ngOnInit - getContacts', item);
-            
-        });
+        this.getTasksFromApi().subscribe((items) => { this.tasks = items; });
+        this.getContactsFromApi().subscribe((items) => { this.contacts = items; console.log('backend.serv - contacts - OK'); });
+        this.getUsersFromApi().subscribe((items) => { this.users = items; });
     }
 
     getHeadersWithToken(): any {
@@ -46,7 +47,7 @@ export class BackendApiService implements OnInit {
     
     // #####################################################################################################
     // ----- API's -----------------------------------------------------------------------------------------
-    // #####################################################################################################
+    // -----------------------------------------------------------------------------------------------------
     // ----- GET's -----------------------------------------------------------------------------------------
     // #####################################################################################################
     
@@ -70,6 +71,11 @@ export class BackendApiService implements OnInit {
     // #####################################################################################################
     
     postTaskToApi(taskData:any) {
+        if (taskData.members == "") {
+            taskData.members = JSON.stringify([]);
+        }
+        console.log('send Data:', taskData);
+        
         const url = environment.baseURL + "/tasks/";
         return this.http.post<any>(url, taskData, this.getHeadersWithToken());
     }
@@ -89,6 +95,9 @@ export class BackendApiService implements OnInit {
     // #####################################################################################################
     
     putTaskToApi(taskData:any, taskID:number) {
+        if (taskData.members == "") {
+            taskData.members = JSON.stringify([]);
+        }
         const url = environment.baseURL + "/tasks/" + taskID + "/";
         return this.http.put<any>(url, taskData, this.getHeadersWithToken());
     }
@@ -126,21 +135,24 @@ export class BackendApiService implements OnInit {
         
         return lastValueFrom(this.http.post<any>(url,body,headers));
     }
-
-
+    
+    
+    public getUserFromToken(token: string): Promise<any> {
+        const url = environment.baseURL + "/currentuser/";
+        const body ={
+            "token": token
+        };
+        return lastValueFrom(this.http.post<any>(url,body,this.getHeadersWithToken()));
+    }
 
 
 
 
     // #####################################################################################################
     // ----- Functions -------------------------------------------------------------------------------------
-    // #####################################################################################################
+    // -----------------------------------------------------------------------------------------------------
     // ----- READ's -----------------------------------------------------------------------------------------
     // #####################################################################################################
-
-    // public getTasksInRow(row:any):any {
-    //     return this.tasks.filter((task: { status: any; }) => task.status == row);
-    // }
 
     async getAllTasks(): Promise<any> {
         try {
@@ -166,6 +178,38 @@ export class BackendApiService implements OnInit {
         }
     }
 
+    getCurrentUserFromID(getID:any) {
+        const userIndex = this.users.indexOf(getID);
+        if (userIndex !== -1) {
+            this.setCurrentUser(userIndex);
+        }
+    }
+
+    setCurrentUser(userIndex: number) {
+        this.currentUser.id = this.users[userIndex].id;
+        this.currentUser.email = this.users[userIndex].email;
+        this.currentUser.first_name = this.users[userIndex].first_name;
+        this.currentUser.last_name = this.users[userIndex].last_name;
+        this.currentUser.username = this.users[userIndex].username;
+    }
+
+    async getContactFromID(getID:any):Promise<any> {
+        console.log('getContactFromID contacts? :', this.contacts.length);
+        if (this.contacts.length == 0) {
+            this.getContactsFromApi().subscribe((items) => { this.contacts = items; });
+        }
+        // const contactIndex = this.contacts.indexOf(getID);
+        const contactIndex = this.contacts.findIndex(c => {
+            return c.id == getID;
+        });
+        console.log('getContactFromID :', this.contacts);
+        console.log('getContactFromID ' + getID + ':', contactIndex);
+        if (contactIndex !== -1) {
+            return this.contacts[contactIndex];
+        }
+        return false;
+    }
+
 
     // #######################################################################################################
     // ----- SAVE's -----
@@ -178,7 +222,6 @@ export class BackendApiService implements OnInit {
         });
     }
 
-
     saveContact(contactItem:Contact):any {
         this.putContactToApi(contactItem, contactItem.id).subscribe((status)=>{
             // console.log('saveContact - PUTsub', status);
@@ -186,14 +229,20 @@ export class BackendApiService implements OnInit {
         });
     }
 
-
     // #######################################################################################################
     // ----- CREATE's -----
     // #######################################################################################################
 
     createContact(contactItem:Contact) {
         this.postContactToApi(contactItem).subscribe((status)=>{
-            console.log('backend - createContact', status);
+            // console.log('backend - createContact', status);
+            return status;
+        });
+    }
+
+    async createTask(taskItem:Task) {
+        this.postTaskToApi(taskItem).subscribe((status)=>{
+            console.log('backend - createTask', status);
             return status;
         });
     }

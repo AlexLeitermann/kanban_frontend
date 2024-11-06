@@ -1,11 +1,28 @@
-<div class="taskitem-container">
+<div class="taskitem-container" *ngIf="isLoaded">
     <div class="taskitem-header">
         <span>{{ taskItem.title }}</span>
     </div>
     <div class="taskitem-content">
-        <div class="ti-content-createdat">{{ taskItem.created_at  | date: 'dd.MM.yyyy, HH:mm' }}</div>
-        <div class="ti-content-author">{{ taskItem.author.username }}</div>
         <div class="ti-content-description">{{ taskItem.description }}</div>
+        <div class="ti-content-createdat">{{ taskItem.created_at  | date: 'dd.MM.yyyy, HH:mm' }}</div>
+        <div class="ti-content-author">{{ taskItem.author.first_name }} {{ taskItem.author.last_name }}</div>
+        <div class="ti-content-memberlist" *ngIf="members.length > 0">
+            <ul>
+                @for (member of members; track $index; let count = $count, last = $last) {
+                    @if ($index < 3) {
+                        <li title="{{ member.member.name }}">
+                            <div class="member-item"><span>{{ member.member.initials }}</span></div>
+                        </li>
+                    }
+                    @if ($index >= 3 && last == true) {
+                        <li >
+                            <div class="member-item"><span>+{{ count - 3 }}</span></div>
+                        </li>
+                    }
+                }
+            </ul>
+
+        </div>
         <div class="ti-content-color color-{{ taskItem.color }}"></div>
     </div>
     <div class="taskitem-footer">

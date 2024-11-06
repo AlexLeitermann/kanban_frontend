@@ -1,6 +1,4 @@
-import { User } from "./user.class";
-
-export class Task {
+export class Sendtask {
     id: number;
     title: string;
     description: string;
@@ -8,7 +6,7 @@ export class Task {
     priority: number;
     status: number;
     created_at?: Date;
-    author: User;
+    author: number;
     members: string;
 
     constructor (obj?: any) {
@@ -18,13 +16,9 @@ export class Task {
         this.color = obj ? obj.color : 0;
         this.status = obj ? obj.status : 0;
         this.created_at = obj ? obj.created_at : '';
-        this.author = obj ? obj.author : new User;
+        this.author = obj ? obj.author : -1;
         this.priority = obj ? obj.priority : 1;
         this.members = obj ? obj.members : '';
     }
 
-
 }
-
-
-

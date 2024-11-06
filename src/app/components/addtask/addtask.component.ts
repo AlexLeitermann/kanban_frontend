@@ -1,12 +1,111 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Contact } from '../../models/contact.class';
+import { Subscription } from 'rxjs';
+import { BackendApiService } from '../../services/backend-api.service';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Task } from '../../models/task.class';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-addtask',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, CommonModule],
   templateUrl: './addtask.component.html',
   styleUrl: './addtask.component.scss'
 })
-export class AddtaskComponent {
+export class AddtaskComponent implements OnInit {
+    public contacts: Contact[] = [];
+    public dbContacts$: any;
+    private contactsSub = new Subscription();
+
+    public members: number[] = [];
+    public dataTask: Task = new Task;
+    public dataAddTask: Task = new Task;
+    public disableForm: boolean = false;
+
+    constructor(
+        private backend: BackendApiService,
+    ) {
+    }
+    
+    ngOnInit() {
+        this.contactsSub = this.subContacts();
+        this.getAllContacts();
+    }
+
+    ngOnDestroy() {
+        this.contactsSub.unsubscribe();
+    }
+
+    subContacts(): Subscription {
+        return this.backend.contacts$.subscribe( (contacts) => {
+            this.contacts = contacts;
+        });
+    }
+    
+    getAllContacts() {
+        this.backend.getContactsFromApi().subscribe(async (result) => {
+            this.dbContacts$ = result;
+            this.contacts = result;
+        });
+    }
+
+    getInitialsFromID(contactID:number) {
+        const index:any = this.contacts.findIndex(c => {
+            return c.id == contactID;
+        });
+        if (index !== -1) {
+            return this.contacts[index].initials;
+        }
+        return "--";
+    }
+
+    getNameFromID(contactID:number) {
+        const index:any = this.contacts.findIndex(c => {
+            return c.id == contactID;
+        });
+        if (index !== -1) {
+            return this.contacts[index].name;
+        }
+        return "--";
+    }
+
+    manageMembers(event: any, userID: number) {
+        if (event.target.checked) {
+            if (!this.members.includes(userID)) {
+                this.members.push(userID);
+            }
+        } else {
+            const memberIndex = this.members.indexOf(userID);
+            if (memberIndex !== -1) {
+                this.members.splice(memberIndex, 1);
+            }
+        }
+    }
+
+    onSubmit(form: NgForm) {
+        if (form.submitted && form.valid) { 
+            console.log('AddTask - onSubmit - isValid > OK');
+            this.saveForm(); 
+        }
+    }
+
+    async saveForm() {
+        this.disableForm = true;
+        await this.saveTask();
+        this.disableForm = false;
+    }
+
+    async saveTask() {
+        this.dataTask.title = this.dataAddTask.title;
+        this.dataTask.description = this.dataAddTask.description;
+        this.dataTask.color = this.dataAddTask.color;
+        this.dataTask.status = this.dataAddTask.status;
+        this.dataTask.priority = this.dataAddTask.priority;
+        this.dataTask.members = JSON.stringify(this.members);
+        this.dataTask.author.id = this.backend.currentUser.id;
+        let res = await this.backend.createTask(this.dataTask);
+    }
+
 
 }

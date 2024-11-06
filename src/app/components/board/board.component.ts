@@ -23,6 +23,7 @@ export class BoardComponent implements OnInit, OnChanges {
     private tasksSub = new Subscription();
 
     public dbTasks$: any;
+    public taskTitles = ['Wartet', 'In Arbeit', 'Bewertung', 'Fertig'];
 
     constructor(
         public backend: BackendApiService,

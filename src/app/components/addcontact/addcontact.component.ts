@@ -29,7 +29,7 @@ export class AddcontactComponent {
 
     onSubmit(form: NgForm) {
         if (form.submitted && form.valid) { 
-            console.log('AddContact - onSubmit');
+            // console.log('AddContact - onSubmit');
             this.saveForm(); 
         }
     }

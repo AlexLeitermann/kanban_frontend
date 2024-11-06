@@ -86,7 +86,6 @@
                         input {
                             width: 0px;
                             opacity: 0;
-
                         }
                         &:has(input:checked) {
                             label {
@@ -175,6 +174,184 @@
                         }
                     }
                 }
+                .members-content {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 5px;
+                    .form-element-label {
+                        position: relative;
+                        width: 100%;
+                        height: 100%;
+                        flex-direction: row;
+                        gap: 5px;
+                        .members-add-btn-box {
+                            display: flex;
+                            #members {
+                                width: 0;
+                                opacity: 0;
+                            }
+                            .members-add-btn {
+                                padding: 4px;
+                                min-width: 40px;
+                                height: 40px;
+                                width: 40px;
+                                border-radius: 99px;
+                                background-color: transparent;
+                                display: flex;
+                                justify-content: center;
+                                align-items: center;
+                                cursor: pointer;
+                                transition: background-color 0.15s ease;
+                                &:checked {
+                                    background-color: $main-color-900;
+                                }
+                                &:hover {
+                                    background-color: $main-color;
+                                }
+                                img {
+                                    height: 24px;
+                                    width: 24px;
+                                }
+                            }
+                        }
+                        .members-dropdown-box:not(&:has(#members:checked)) {
+                            position: absolute;
+                            padding: 5px;
+                            top: 0;
+                            left: 50px;
+                            max-width: calc(100% - 50px);
+                            max-height: 42px;
+                            width: fit-content;
+                            height: fit-content;
+                            border: 1px solid $background;
+                            border-radius: 10px;
+                            background-color: $background-frame;
+                            overflow-y: auto;
+                            opacity: 0;
+                            transition: max-height 0.2s ease-out 0s, opacity 0.2s ease-out 0.25s;
+                            scrollbar-gutter: stable;
+                            pointer-events: none;
+                            @include scrollbar();
+                            ul {
+                                display: flex;
+                                flex-direction: column;
+                                gap: 2px;
+                                li {
+                                    border-radius: 4px;
+                                    display: flex;
+                                    cursor: pointer;
+                                    &:hover, &:has(label:hover) {
+                                        color: $text-color;
+                                        background-color: $main-color;
+                                        &:has(input[type='checkbox']:checked) {
+                                            color: $text-color;
+                                            background-color: $main-color-500;
+                                        }
+                                    }
+                                    &:has(input:checked) {
+                                        background-color: $main-color-900;
+                                    }
+                                    input[type="checkbox"] {
+                                        width: 0;
+                                        opacity: 0;
+                                    }
+                                    label {
+                                        padding: 2px 5px;
+                                        width: 100%;
+                                        display: block;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 10px;
+                                        cursor: pointer;
+                                        span {
+                                            max-width: 32px;
+                                            min-width: 32px;
+                                            max-height: 32px;
+                                            width: 32px;
+                                            height: 32px;
+                                            border: 1px solid #fff;
+                                            border-radius: 99px;
+                                            background-color: $background-frame;
+                                            color: $text-color;
+                                            font-size: 12px;
+                                            font-weight: 700;
+                                            display: inline-flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            opacity: 1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        &:has(#members:checked) {
+                            .members-add-btn-box {
+                                .members-add-btn {
+                                    background-color: $main-color-900;
+                                    &:hover {
+                                        background-color: $main-color;
+                                    }
+                                }
+                            }
+                            .members-dropdown-box {
+                                height: fit-content;
+                                opacity: 1;
+                                max-height: min(200px, calc(100vh - 448px));
+                                transition: max-height 0.2s ease-out 0.25s, opacity 0.2s ease-out;
+                                pointer-events: all;
+                                @media screen and (max-width: 500px) {
+                                    max-width: calc(100vw - 155px);
+                                }
+                            }
+                        }
+                        .v-seperator {
+                            height: 40px;
+                            min-width: 2px;
+                            width: 2px;
+                            background-color: #000;
+                            border-left: 1px solid #666;
+                        }
+                        .members-list {
+                            display: flex;
+                            align-items: center;
+                            width: calc(100% - 50px);
+                            ul {
+                                display: flex;
+                                // gap: 0px;
+                                overflow-x: auto;
+                                @include scrollbar();
+                                li {
+                                    .member-item {
+                                        padding: 2px 2px;
+                                        width: 100%;
+                                        display: block;
+                                        display: flex;
+                                        align-items: center;
+                                        gap: 10px;
+                                        span {
+                                            max-width: 32px;
+                                            min-width: 32px;
+                                            max-height: 32px;
+                                            width: 32px;
+                                            height: 32px;
+                                            border: 1px solid #fff;
+                                            border-radius: 99px;
+                                            background-color: $background-frame;
+                                            color: $text-color;
+                                            font-size: 12px;
+                                            font-weight: 700;
+                                            display: inline-flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            opacity: 1;
+                                            user-select: none;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -198,8 +375,6 @@
             // }
             .addtask-content {
                 .addtask-form {
-                    // height: calc(100% - 48px);
-                    // gap: 10px;
                     overflow-y: auto;
                     .form-element-label {
                         .form-element {
@@ -223,13 +398,10 @@
                     // }
                     .task-priority-box {
                         flex-direction: row;
-                        // align-items: flex-start;
                         .form-element-label.task-priority {
                             gap: 10px;
                             .form-element-row {
-                                // padding: 0;
                                 label {
-                                    // padding: 5px;
                                     span {
                                         display: none;
                                     }
@@ -237,11 +409,14 @@
                             }
                         }
                     }
-                    .task-type-box, .task-priority-box {
+                    .task-type-box, .task-priority-box, .members-content {
                         h2 {
                             font-size: 20px;
                         }
                     }
+                    // .members-content {
+
+                    // }
                 }
             }
         }
@@ -270,6 +445,7 @@
                     .form-element-label {
                         .form-element {
                             padding: 8px 12px;
+                            font-size: 12px;
                         }
                     }
                     .task-type-box {
@@ -298,6 +474,27 @@
                                     padding: 5px;
                                     span {
                                         display: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .members-content {
+                        flex-direction: row;
+                        gap: 0px;
+                        h2 {
+                            display: none;
+                        }
+                        .form-element-label {
+                            .members-dropdown-box {
+                                ul {
+                                    li {
+                                        label {
+                                            font-size: 12px;
+                                            span {
+                                                font-size: 12px;
+                                            }
+                                        }
                                     }
                                 }
                             }

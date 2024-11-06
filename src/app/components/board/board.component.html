@@ -1,26 +1,31 @@
 <div class="board-box">
     <div class="board-subbox">
-        <div class="task-row">
-            <div class="task-row-title">
-                <span>Aufgabe</span>
-                <div class="task-row-add">
-                    <img src="/assets/img/plus.svg">
-                </div>
-            </div>
-            <div class="task-row-content">
-                <!-- @if (tasks.len() > 0) { -->
-                    @for (task of dbTasks$; track $index) {
-                        @if (task.status == 0) {
-                            <app-task-item [taskItem]="task"></app-task-item>
-                        }
+        @for (taskTitle of taskTitles; track taskTitle; let taskrow = $index) {
+            <div class="task-row">
+                <div class="task-row-title">
+                    <span>{{taskTitle}}</span>
+                    @if (taskrow < 3) {
+                        <div class="task-row-add">
+                            <img src="/assets/img/plus.svg">
+                        </div>
                     }
-                <!-- } @else {
-                    <div>Leer</div>
-                } -->
+                </div>
+                <div class="task-row-content">
+                    <!-- @if (tasks.len() > 0) { -->
+                        @for (task of dbTasks$; track $index) {
+                            @if (task.status == taskrow) {
+                                <app-task-item [taskItem]="task"></app-task-item>
+                            }
+                        }
+                    <!-- } @else {
+                        <div>Leer</div>
+                    } -->
+                </div>
+                <div class="task-row-footer"></div>
             </div>
-            <div class="task-row-footer"></div>
-        </div>
-        <div class="task-row">
+        }
+
+        <!-- <div class="task-row">
             <div class="task-row-title">
                 <span>In Arbeit</span>
                 <div class="task-row-add">
@@ -64,6 +69,6 @@
                 }
             </div>
             <div class="task-row-footer"></div>
-        </div>
+        </div> -->
     </div>
 </div>

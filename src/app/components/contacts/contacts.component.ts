@@ -65,7 +65,6 @@ export class ContactsComponent implements OnInit, OnChanges {
 
     editContact() {
         if (this.singleContact) {
-            console.log('editCont - before:', this.singleContact);
             this.dialogContactEditRef = this.dialog.open(ContactEditComponent, {
                 data: {
                     selectedContact: this.singleContact
@@ -73,7 +72,7 @@ export class ContactsComponent implements OnInit, OnChanges {
                 panelClass: "dialogPanel",
                 backdropClass: "dialogBackdropBackground"
             });
-            this.dialogContactEditRef.afterClosed().subscribe(result => {
+            this.dialogContactEditRef.afterClosed().subscribe(() => {
             });
         }
     }
@@ -97,7 +96,7 @@ export class ContactsComponent implements OnInit, OnChanges {
             panelClass: "dialogPanel",
             backdropClass: "dialogBackdropBackground"
         });
-        this.dialogContactAddRef.afterClosed().subscribe(result => {
+        this.dialogContactAddRef.afterClosed().subscribe(() => {
             this.getAllContacts();
         });
     }
