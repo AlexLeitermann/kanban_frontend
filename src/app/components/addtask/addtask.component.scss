@@ -171,6 +171,9 @@
                             label {
                                 padding: 10px 20px;
                             }
+                            &:hover {
+                                border-color: #fff;
+                            }
                         }
                     }
                 }
@@ -352,6 +355,12 @@
                         }
                     }
                 }
+                .status-content {
+                    span {
+                        font-size: 24px;
+                        font-weight: 700;
+                    }
+                }
             }
         }
     }
@@ -417,6 +426,12 @@
                     // .members-content {
 
                     // }
+                    .status-content {
+                        span {
+                            font-size: 20px;
+                        }
+                    }
+    
                 }
             }
         }
@@ -439,8 +454,9 @@
             }
             .addtask-content {
                 .addtask-form {
+                    padding: 10px;
                     height: calc(100% - 48px);
-                    gap: 10px;
+                    gap: 8px;
                     overflow-y: auto;
                     .form-element-label {
                         .form-element {
@@ -502,6 +518,11 @@
                     }
                     .task-type-box, .task-priority-box {
                         h2 {
+                            font-size: 16px;
+                        }
+                    }
+                    .status-content {
+                        span {
                             font-size: 16px;
                         }
                     }

@@ -5,9 +5,9 @@
                 <div class="task-row-title">
                     <span>{{taskTitle}}</span>
                     @if (taskrow < 3) {
-                        <div class="task-row-add">
+                        <a class="task-row-add" [routerLink]="['/home/addtask',taskrow]" (click)="getRoute('/home/addtask', taskrow)">
                             <img src="/assets/img/plus.svg">
-                        </div>
+                        </a>
                     }
                 </div>
                 <div class="task-row-content">
@@ -24,51 +24,5 @@
                 <div class="task-row-footer"></div>
             </div>
         }
-
-        <!-- <div class="task-row">
-            <div class="task-row-title">
-                <span>In Arbeit</span>
-                <div class="task-row-add">
-                    <img src="/assets/img/plus.svg">
-                </div>
-            </div>
-            <div class="task-row-content">
-                @for (task of dbTasks$; track $index) {
-                    @if (task.status == 1) {
-                        <app-task-item [taskItem]="task"></app-task-item>
-                    }
-                }
-            </div>
-            <div class="task-row-footer"></div>
-        </div>
-        <div class="task-row">
-            <div class="task-row-title">
-                <span>Bewertung</span>
-                <div class="task-row-add">
-                    <img src="/assets/img/plus.svg">
-                </div>
-            </div>
-            <div class="task-row-content">
-                @for (task of dbTasks$; track $index) {
-                    @if (task.status == 2) {
-                        <app-task-item [taskItem]="task"></app-task-item>
-                    }
-                }
-            </div>
-            <div class="task-row-footer"></div>
-        </div>
-        <div class="task-row">
-            <div class="task-row-title">
-                <span>Fertig</span>
-            </div>
-            <div class="task-row-content">
-                @for (task of dbTasks$; track $index) {
-                    @if (task.status == 3) {
-                        <app-task-item [taskItem]="task" [taskStatus]="3"></app-task-item>
-                    }
-                }
-            </div>
-            <div class="task-row-footer"></div>
-        </div> -->
     </div>
 </div>

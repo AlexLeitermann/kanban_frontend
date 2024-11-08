@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';
 import { BehaviorSubject, lastValueFrom, Observable, of } from 'rxjs';
 import { Contact } from '../models/contact.class';
@@ -9,14 +9,12 @@ import { User } from '../models/user.class';
 @Injectable({
     providedIn: 'root'
 })
-export class BackendApiService implements OnInit {
+export class BackendApiService {
     private tasksSubject = new BehaviorSubject<any[]>([]);
     private contactSubject = new BehaviorSubject<any[]>([]);
     tasks: Task[] = [];
     contacts: Contact[] = [];
     users: User[] = [];
-    // tasksObservable$:any;
-    // contactsObservable$:any;
     public currentUser = new User;
 
     apiHeaders = {headers:{
@@ -28,12 +26,34 @@ export class BackendApiService implements OnInit {
     public contacts$ = this.contactSubject.asObservable();
     public token: string | undefined = undefined;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+        this.initToken();
+        this.initData();
+    }
 
-    ngOnInit(): void {
-        this.getTasksFromApi().subscribe((items) => { this.tasks = items; });
-        this.getContactsFromApi().subscribe((items) => { this.contacts = items; console.log('backend.serv - contacts - OK'); });
-        this.getUsersFromApi().subscribe((items) => { this.users = items; });
+    public initToken(): void {
+        let storeToken = localStorage.getItem('link-token') || "";
+        if (this.token == undefined && storeToken != "") {
+            this.token = storeToken;
+        }
+    }
+
+    public initData(): void {
+        this.getTasksFromApi().subscribe((items) => { 
+            this.tasks = items; 
+            // console.log('backend.serv - tasks - OK'); 
+            this.tasksSubject.next(this.tasks);
+        });
+        this.getContactsFromApi().subscribe((items) => { 
+            this.contacts = items; 
+            // console.log('backend.serv - contacts - OK'); 
+            this.contactSubject.next(this.contacts);
+        });
+        this.getUsersFromApi().subscribe((items) => { 
+            this.users = items; 
+            // console.log('backend.serv - users - OK'); 
+        });
+
     }
 
     getHeadersWithToken(): any {
@@ -161,7 +181,7 @@ export class BackendApiService implements OnInit {
             this.tasks = data;
             return this.tasks;
         } catch (error) {
-            console.error('Fehler beim Abrufen der Daten:', error);
+            console.error('Fehler beim Abrufen der Daten (tasks):', error);
             throw error;
         }
     }
@@ -170,10 +190,10 @@ export class BackendApiService implements OnInit {
         try {
             const data = await lastValueFrom(this.getContactsFromApi());
             // console.log('Empfangene Daten:', data);
-            this.tasks = data;
-            return this.tasks;
+            this.contacts = data;
+            return this.contacts;
         } catch (error) {
-            console.error('Fehler beim Abrufen der Daten:', error);
+            console.error('Fehler beim Abrufen der Daten (contacts):', error);
             throw error;
         }
     }
@@ -194,16 +214,15 @@ export class BackendApiService implements OnInit {
     }
 
     async getContactFromID(getID:any):Promise<any> {
-        console.log('getContactFromID contacts? :', this.contacts.length);
+        // console.log('getContactFromID contacts? :', this.contacts.length);
         if (this.contacts.length == 0) {
-            this.getContactsFromApi().subscribe((items) => { this.contacts = items; });
+            this.getContactsFromApi().subscribe(async (items) => { this.contacts = items; });
         }
-        // const contactIndex = this.contacts.indexOf(getID);
         const contactIndex = this.contacts.findIndex(c => {
             return c.id == getID;
         });
-        console.log('getContactFromID :', this.contacts);
-        console.log('getContactFromID ' + getID + ':', contactIndex);
+        // console.log('getContactFromID :', this.contacts);
+        // console.log('getContactFromID ' + getID + ':', contactIndex);
         if (contactIndex !== -1) {
             return this.contacts[contactIndex];
         }

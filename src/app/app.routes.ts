@@ -18,6 +18,7 @@ export const routes: Routes = [
             {path:'', redirectTo: 'board', pathMatch: 'full'},
             {path:'board', component: BoardComponent},
             {path:'addtask', component: AddtaskComponent},
+            {path:'addtask/:status', component: AddtaskComponent},
             {path:'contacts', component: ContactsComponent},
         ]
     },

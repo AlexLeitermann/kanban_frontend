@@ -91,6 +91,7 @@
         }
     }
     &:hover {
+        border-color: $main-color;
         .taskitem-header {
             background-color: $main-color;
         }

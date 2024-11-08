@@ -5,6 +5,7 @@ import { BackendApiService } from '../../services/backend-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TaskItemComponent } from '../task-item/task-item.component';
 import { Subscription } from 'rxjs';
+import { Router, RouterLinkWithHref } from '@angular/router';
 
 @Component({
   selector: 'app-board',
@@ -14,7 +15,8 @@ import { Subscription } from 'rxjs';
     NavmenuComponent,
     TaskItemComponent,
     HttpClientModule,
-  ],
+    RouterLinkWithHref,
+],
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
@@ -27,6 +29,7 @@ export class BoardComponent implements OnInit, OnChanges {
 
     constructor(
         public backend: BackendApiService,
+        public route: Router,
     ) {}
 
     async ngOnInit() {
@@ -52,6 +55,16 @@ export class BoardComponent implements OnInit, OnChanges {
         this.backend.getTasksFromApi().subscribe(async (result) => {
             this.dbTasks$=result;
         });
+    }
+
+    async getRoute(newRoute: any, status: number = 0) {
+        if (newRoute == this.route.url) {
+            // Reload current route
+            this.route.navigateByUrl('/', {skipLocationChange:true})
+            .then(()=>{
+                this.route.navigate([`/${newRoute}`, status])
+            });
+        }
     }
 
 }

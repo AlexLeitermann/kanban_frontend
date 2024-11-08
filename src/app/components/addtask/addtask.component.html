@@ -72,7 +72,10 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" id="status" name="status" min="0" max="3" [value]="0" [ngModel]="dataAddTask.status" class="form-element">
+            <div class="status-content">
+                <span>Status: {{taskTitles[dataAddTask.status]}}</span>
+            </div>
+            <input type="hidden" id="status" name="status" min="0" max="2" [ngModel]="dataAddTask.status" class="form-element">
             <button type="submit" class="btn-primary" [disabled]="disableForm">Erstellen</button>
         </form>
     </div>

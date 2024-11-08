@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router, RouterLinkWithHref } from '@angular/router';
-import { BackendApiService } from '../../services/backend-api.service';
 import { BoardComponent } from '../board/board.component';
 
 @Component({
@@ -17,14 +16,14 @@ import { BoardComponent } from '../board/board.component';
 })
 export class NavmenuComponent {
 
-    constructor(public route: Router,private backend: BackendApiService,private board: BoardComponent) {}
+    constructor(public route: Router) {}
 
     async getRoute(newRoute: any) {
         if (newRoute == this.route.url) {
             // Reload current route
-            this.route.navigateByUrl('/', {skipLocationChange:true})
+            this.route.navigateByUrl('/', {skipLocationChange:false})
             .then(()=>{
-                this.route.navigate([`/${newRoute}`])
+                this.route.navigate([`/${newRoute}`]);
             });
         }
     }

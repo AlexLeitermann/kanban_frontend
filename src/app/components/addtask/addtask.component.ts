@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Contact } from '../../models/contact.class';
 import { Subscription } from 'rxjs';
 import { BackendApiService } from '../../services/backend-api.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Task } from '../../models/task.class';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-addtask',
@@ -23,14 +24,31 @@ export class AddtaskComponent implements OnInit {
     public dataAddTask: Task = new Task;
     public disableForm: boolean = false;
 
+    public taskTitles = ['Wartet', 'In Arbeit', 'Bewertung', 'Fertig'];
+
+    public taskStatus!: number;
+    myParam!: string;
+
     constructor(
         private backend: BackendApiService,
+        private route: ActivatedRoute,
     ) {
+        this.getUrlParam();
     }
     
     ngOnInit() {
+        this.getUrlParam();
         this.contactsSub = this.subContacts();
         this.getAllContacts();
+    }
+    
+    getUrlParam(): void {
+        const paramStatus = this.route.snapshot.paramMap.get('status');
+        this.taskStatus = paramStatus != undefined ? +paramStatus : 0;
+        if (this.taskStatus > 2) {
+            this.taskStatus = 2;
+        }
+        this.dataAddTask.status = this.taskStatus;
     }
 
     ngOnDestroy() {
