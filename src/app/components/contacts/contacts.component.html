@@ -9,7 +9,7 @@
             </div>
             <div class="contact-list">
                 <ul>
-                    @for (cont of dbContacts$; track $index) {
+                    @for (cont of contacts; track $index) {
                         <li>
                             <input type="radio" name="contactlist" id="contact-{{$index}}" (click)="viewSelectedContact($index)">
                             <label for="contact-{{$index}}"><span>{{ cont.initials }}</span>{{ cont.name }}</label>

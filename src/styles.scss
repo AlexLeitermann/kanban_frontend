@@ -5,6 +5,8 @@ $background: #525561;
 $background-input: #323644;
 $background-frame: #272a37;
 $background-frame-50: #272a3780;
+$background-frame-75: #272a37b0;
+$background-frame-90: #272a37e8;
 
 $main-color: #1d90f5;
 $main-color-50: #eefaff;
@@ -35,6 +37,22 @@ $color-yellow: #fcb12a;
 
 $shadow-headers: 0 4px 2px 0 rgba(0,0,0,0.12);
 
+@mixin textOverflowSingle() {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@mixin textOverflowMulti($rows: 2) {
+    overflow: hidden;
+    display: -webkit-box;
+    line-clamp: $rows;
+    -webkit-line-clamp: $rows;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+}
+
 
 html, body {
     margin: 0;
@@ -59,8 +77,8 @@ body {
 
 @mixin scrollbar() {
     &::-webkit-scrollbar {
-        width: 14px;
-        height: 14px;
+        width: 10px;
+        height: 10px;
     }
 
     &::-webkit-scrollbar-thumb {
@@ -352,6 +370,9 @@ ul {
 
 
 .dialogPanel {
+    &.cdk-overlay-pane.mat-mdc-dialog-panel {
+        max-width: 80vw;
+    }
     .mat-mdc-dialog-container .mdc-dialog__surface {
         border-radius: 30px;
         background-color: transparent;
@@ -367,6 +388,16 @@ ul {
 
 
 @media screen and (max-width: 768px) {
+    .dialogPanel {
+        &.cdk-overlay-pane.mat-mdc-dialog-panel {
+            max-width: calc(100vw - 20px);
+        }
+        .mat-mdc-dialog-container .mdc-dialog__surface {
+            border-radius: 30px;
+            background-color: transparent;
+        }
+    }
+        
     .btn-primary {
         padding: 8px 12px;
         min-width: auto;
@@ -405,6 +436,16 @@ ul {
 }
 
 @media screen and (max-width: 500px) {
+    .dialogPanel {
+        &.cdk-overlay-pane.mat-mdc-dialog-panel {
+            max-width: calc(100vw - 10px);
+        }
+        .mat-mdc-dialog-container .mdc-dialog__surface {
+            border-radius: 30px;
+            background-color: transparent;
+        }
+    }
+        
     // .btn-primary {
     //     padding: 8px 12px;
     //     min-width: auto;

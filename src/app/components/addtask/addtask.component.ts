@@ -5,7 +5,7 @@ import { BackendApiService } from '../../services/backend-api.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Task } from '../../models/task.class';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-addtask',
@@ -32,6 +32,7 @@ export class AddtaskComponent implements OnInit {
     constructor(
         private backend: BackendApiService,
         private route: ActivatedRoute,
+        public newRoute: Router,
     ) {
         this.getUrlParam();
     }
@@ -122,7 +123,22 @@ export class AddtaskComponent implements OnInit {
         this.dataTask.priority = this.dataAddTask.priority;
         this.dataTask.members = JSON.stringify(this.members);
         this.dataTask.author.id = this.backend.currentUser.id;
-        let res = await this.backend.createTask(this.dataTask);
+        this.backend.createTask(this.dataTask).subscribe((res: any) => {
+            console.log('C.addTask - saveTask:', res);
+            this.newRoute.navigate([`/home/board`])
+        });
+    }
+
+    moveRowLeft() {
+        if (this.dataAddTask.status > 0) {
+            this.dataAddTask.status--;
+        }
+    }
+
+    moveRowRight() {
+        if (this.dataAddTask.status < 3) {
+            this.dataAddTask.status++;
+        }
     }
 
 

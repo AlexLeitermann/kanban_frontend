@@ -46,7 +46,10 @@ export class ContactEditComponent {
             this.dataContact.initials = this.initialsFrom(this.dataEditContact.name);
             this.dataContact.email = this.dataEditContact.email;
             this.dataContact.phone = this.dataEditContact.phone;
-            let res = this.backend.saveContact(this.dataContact);
+            console.log('editContact - saveContactL', this.dataContact);
+            this.backend.saveContact(this.dataContact).subscribe(() => {
+                this.backend.initData();
+            });
             // console.log('saveEditContact:', res);
             this.closeDialog();
             }

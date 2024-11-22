@@ -3,7 +3,7 @@
 :host {
     z-index: 0;
     position: relative;
-    width: 100%;
+    width: calc(100vw - 250px);
     height: 100%;
     background-image: url('/assets/img/login_background.jpg');
     background-size: cover;
@@ -112,8 +112,7 @@
 
 @media screen and (max-width: 1024px) {
     :host {
-        &:after {
-        }
+        width: calc(100vw - 140px);
         .board-box {
             .board-subbox {
                 gap: 10px;
@@ -125,13 +124,7 @@
                                 width: 12px;
                                 height: 12px;
                             }
-                            &:hover {
-                                img {
-                                }
-                            }
                         }
-                    }
-                    .task-row-content {
                     }
                 }
             }
@@ -142,29 +135,12 @@
 
 
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 768px) {
     :host {
-        &:after {
-        }
+        width: 100vw;
         .board-box {
             padding: 10px;
             overflow-x: auto;
-            .board-subbox {
-                .task-row {
-                    .task-row-title {
-                        .task-row-add {
-                            img {
-                            }
-                            &:hover {
-                                img {
-                                }
-                            }
-                        }
-                    }
-                    .task-row-content {
-                    }
-                }
-            }
         }
     }
 }

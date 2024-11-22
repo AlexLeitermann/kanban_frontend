@@ -1,11 +1,9 @@
-<div class="taskitem-container" *ngIf="isLoaded">
+<div class="taskitem-container" *ngIf="isLoaded" (click)="editTask()">
     <div class="taskitem-header">
         <span>{{ taskItem.title }}</span>
     </div>
     <div class="taskitem-content">
         <div class="ti-content-description">{{ taskItem.description }}</div>
-        <div class="ti-content-createdat">{{ taskItem.created_at  | date: 'dd.MM.yyyy, HH:mm' }}</div>
-        <div class="ti-content-author">{{ taskItem.author.first_name }} {{ taskItem.author.last_name }}</div>
         <div class="ti-content-memberlist" *ngIf="members.length > 0">
             <ul>
                 @for (member of members; track $index; let count = $count, last = $last) {
@@ -29,16 +27,33 @@
         <div class="ti-footer-navbox">
             <div class="ti-footer-left">
                 @if ( taskItem.status > 0 ) {
-                    <div class="btn-img-box" (click)="moveRowLeft()">
+                    <div class="btn-img-box" (click)="moveTask('left')">
                         <img src="/assets/img/left.svg">
                     </div>
+                } @else {
+                    <div class="space"> </div>
                 }
+            </div>
+            <div class="ti-footer-middle">
+                <div class="ti-priority">
+                    @if (taskItem.priority == 0) {
+                        <img src="/assets/img/priority_0_small_active.svg">
+                    }
+                    @if (taskItem.priority == 1) {
+                        <img src="/assets/img/priority_1_small_active.svg">
+                    }
+                    @if (taskItem.priority == 2) {
+                        <img src="/assets/img/priority_2_small_active.svg">
+                    }
+                </div>
             </div>
             <div class="ti-footer-right">
                 @if ( taskItem.status < 3 ) {
-                    <div class="btn-img-box" (click)="moveRowRight()">
+                    <div class="btn-img-box" (click)="moveTask('right')">
                         <img src="/assets/img/right.svg">
                     </div>
+                } @else {
+                    <div class="space"> </div>
                 }
             </div>
         </div>

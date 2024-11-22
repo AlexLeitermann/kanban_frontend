@@ -29,17 +29,63 @@
             }
         }
     }
-    .logout-box {
+    .profilemenu-opener {
+        display: flex;
+        align-items: center;
+        .profile-open {
+            display: flex;
+            cursor: pointer;
+            img {
+                width: 32px;
+                height: 32px;
+            }
+        }
+    }
+    .profilemenu-container {
+        position: absolute;
+        top: 70px;
+        right: 40px;
+        padding: 10px;
+        background-color: $background-frame-90;
+        border-radius: 8px;
+        // border: 1px solid $text-dark;
+        border: 1px solid #000;
         display: flex;
         flex-direction: column;
-        cursor: pointer;
-        img {
-            width: 32px;
-            height: 32px;
+        gap: 10px;
+        .profilemenu-name {
+            font-size: 16px;
+            color: $text-color;
         }
-        &:hover {
-            img {
-                content: url('/assets/img/logout_hover.svg');
+        .seperator {
+            height: 2px;
+            min-height: 2px;
+            width: 100%;
+            background-color: #000;
+            border-bottom: 1px solid #666;
+        }
+        .profilemenu-logout {
+            .logout-box {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+                cursor: pointer;
+                img {
+                    width: 32px;
+                    height: 32px;
+                }
+                span {
+                    font-size: 20px;
+                }
+                &:hover {
+                    img {
+                        content: url('/assets/img/logout_hover.svg');
+                    }
+                    span {
+                        color: $main-color;
+                    }
+                }
             }
         }
     }
@@ -60,6 +106,22 @@
                 span {
                     font-size: 22px;
                 }
+            }
+        }
+        .profilemenu-opener {
+            .profile-open {
+                img {
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+        }
+        .profilemenu-container {
+            top: 45px;
+            right: 10px;
+            padding: 10px;
+            .profilemenu-name {
+                font-size: 14px;
             }
         }
     }

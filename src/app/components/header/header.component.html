@@ -1,4 +1,4 @@
-<div class="header-content">
+<div class="header-content" *ngIf="isLoaded">
     <div class="header-logo-title">
         <div class="logo-box">
             <img src="/assets/img/favicon.png">
@@ -7,7 +7,18 @@
             <span>LINK</span>
         </div>
     </div>
-    <div class="logout-box" title="Logout" (click)="logout()">
-        <img src="/assets/img/logout.svg">
+    <div class="profilemenu-opener" (click)="profileOpen()">
+        <div class="profile-open"><img src="/assets/img/user.svg"></div>
     </div>
+    @if (profileOpener) {
+        <div class="profilemenu-container">
+            <div class="profilemenu-name">{{currentProfile}}</div>
+            <div class="seperator"></div>
+            <div class="profilemenu-logout">
+                <div class="logout-box" title="Logout" (click)="logout()">
+                    <img src="/assets/img/logout.svg"><span>Logout</span>
+                </div>
+            </div>
+        </div>
+    }
 </div>

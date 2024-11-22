@@ -11,26 +11,26 @@
             </div>
             <div class="content-left-container">
                 <span class="login-title">Registrieren</span>
-                <form class="form-login" autocomplete="off" onsubmit="register()">
+                <form class="form-register" autocomplete="off" (ngSubmit)="onSubmit(register)" #register="ngForm">
                     <div class="form-input-box">
                         <div id="form-firstname-label" class="form-element-label" top="Vorname">
-                            <input type="text" name="firstname" id="form-firstname" class="form-element" placeholder="Vorname" required>
+                            <input type="text" name="firstname" id="form-firstname" class="form-element" [(ngModel)]="registerData.firstname" placeholder="Vorname" required>
                             <span>Vorname ist erforderlich.</span>
                         </div>
                         <div id="form-lastname-label" class="form-element-label" top="Nachname">
-                            <input type="text" name="lastname" id="form-lastname" class="form-element" placeholder="Nachname" required>
+                            <input type="text" name="lastname" id="form-lastname" class="form-element" [(ngModel)]="registerData.lastname" placeholder="Nachname" required>
                             <span>Nachname ist erforderlich.</span>
                         </div>
                         <div id="form-email-label" class="form-element-label" top="E-Mail">
-                            <input type="email" name="email" id="form-email" class="form-element" placeholder="E-Mail" required>
+                            <input type="email" name="email" id="form-email" class="form-element" [(ngModel)]="registerData.email" placeholder="E-Mail" required>
                             <span>E-Mail ist erforderlich.</span>
                         </div>
                         <div id="form-password-label" class="form-element-label" top="Neues Passwort">
-                            <input type="password" name="newpassword" id="form-password" class="form-element" minlength="8" placeholder="Neues Passwort" required>
+                            <input type="password" name="newpassword" id="form-password" class="form-element" minlength="8" [(ngModel)]="registerData.newpassword" placeholder="Neues Passwort" required>
                             <span>Kein gültiges Passwort.</span>
                         </div>
                         <div id="form-password-repeat-label" class="form-element-label" top="Passwort wiederholen">
-                            <input type="password" name="confirmpassword" id="form-password-repeat" class="form-element" minlength="8" placeholder="Passwort wiederholen" required>
+                            <input type="password" name="confirmpassword" id="form-password-repeat" class="form-element" minlength="8" [(ngModel)]="registerData.confirmpassword" placeholder="Passwort wiederholen" required>
                             <span>Kein gültiges Passwort.</span>
                         </div>
                     </div>

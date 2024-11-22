@@ -36,7 +36,11 @@ export class HomeComponent implements OnInit {
         if (this.backend.currentUser.id == 0) {
             await this.backend.getUserFromToken(this.backend.token || "")
             .then((res) => {
-                this.backend.currentUser.id = res.userid;
+                this.backend.currentUser.id = res.id;
+                this.backend.currentUser.username = res.username;
+                this.backend.currentUser.first_name = res.first_name;
+                this.backend.currentUser.last_name = res.last_name;
+                this.backend.currentUser.email = res.email;
             });
         }
         

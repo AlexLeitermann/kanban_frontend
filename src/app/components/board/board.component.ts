@@ -1,18 +1,15 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { NavmenuComponent } from '../navmenu/navmenu.component';
-import { HeaderComponent } from '../header/header.component';
+import { Component, OnInit } from '@angular/core';
 import { BackendApiService } from '../../services/backend-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { TaskItemComponent } from '../task-item/task-item.component';
 import { Subscription } from 'rxjs';
 import { Router, RouterLinkWithHref } from '@angular/router';
+import { Task } from '../../models/task.class';
 
 @Component({
   selector: 'app-board',
   standalone: true,
   imports: [
-    HeaderComponent,
-    NavmenuComponent,
     TaskItemComponent,
     HttpClientModule,
     RouterLinkWithHref,
@@ -20,11 +17,9 @@ import { Router, RouterLinkWithHref } from '@angular/router';
   templateUrl: './board.component.html',
   styleUrl: './board.component.scss'
 })
-export class BoardComponent implements OnInit, OnChanges {
-    public tasks:any[] = [];
+export class BoardComponent implements OnInit {
+    public tasks:Task[] = [];
     private tasksSub = new Subscription();
-
-    public dbTasks$: any;
     public taskTitles = ['Wartet', 'In Arbeit', 'Bewertung', 'Fertig'];
 
     constructor(
@@ -33,28 +28,13 @@ export class BoardComponent implements OnInit, OnChanges {
     ) {}
 
     async ngOnInit() {
-        this.tasksSub = this.subTasks();
-        this.getAllTasks();
+        this.tasksSub.add(
+            this.backend.getTasksFromApi().subscribe((tasks) => { this.tasks = tasks })
+        );
     }
 
     ngOnDestroy() {
         this.tasksSub.unsubscribe();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        this.getAllTasks();
-    }
-
-    subTasks(): Subscription {
-        return this.backend.tasks$.subscribe( (tasks) => {
-            this.tasks = tasks;
-        });
-    }
-    
-    getAllTasks() {
-        this.backend.getTasksFromApi().subscribe(async (result) => {
-            this.dbTasks$=result;
-        });
     }
 
     async getRoute(newRoute: any, status: number = 0) {

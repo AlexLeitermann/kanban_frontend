@@ -1,1 +1,140 @@
-<p>task-edit works!</p>
+<div class="viewedittask-container" *ngIf="dataEditTask">
+    <div class="edittask-header">
+        <h1>Aufgabe</h1>
+        <div class="view-priority" *ngIf="!viewedit">
+            @if (dataTask.priority == 0) {
+                <img src="/assets/img/priority_0_active.svg">
+            }
+            @if (dataTask.priority == 1) {
+                <img src="/assets/img/priority_1_small_active.svg">
+            }
+            @if (dataTask.priority == 2) {
+                <img src="/assets/img/priority_2_active.svg">
+            }
+        </div>
+    </div>
+    <div class="viewtask-content" *ngIf="!viewedit">
+        <div class="view-title"><span>{{ dataTask.title }}</span></div>
+        <div class="view-description"><span>{{ dataTask.description }}</span></div>
+        <div class="view-priority"></div>
+        <div class="view-typ" class="view-typ color-{{ dataTask.color }}"></div>
+        <div class="view-createdat"><span>Erstellt: {{ dataTask.created_at  | date: 'dd.MM.yyyy, HH:mm' }} Uhr</span></div>
+        <div class="view-author"><span>Author: {{ dataTask.author.first_name }} {{ dataTask.author.last_name }}</span></div>
+        <div class="view-members">
+            <div class="view-members-memberlist" *ngIf="members.length > 0">
+                <ul>
+                    @for (member of members; track $index; let count = $count, last = $last) {
+                        @if ($index < 9) {
+                            <li title="{{ member.member.name }}">
+                                <div class="member-item"><span>{{ member.member.initials }}</span></div>
+                            </li>
+                        }
+                        @if ($index >= 9 && last == true) {
+                            <li >
+                                <div class="member-item"><span>+{{ count - 9 }}</span></div>
+                            </li>
+                        }
+                    }
+                </ul>
+    
+            </div>
+        </div>
+        <div class="view-status"><span>Status: {{taskTitles[dataTask.status]}}</span></div>
+        <div class="view-buttons">
+            <button class="btn-primary" (click)="toggleViewEdit()" title="Bearbeiten"><img src="/assets/img/edit.svg"> <span>Bearbeiten</span></button>
+            <button class="btn-secondary" (click)="deleteTask()" title="Löschen"><img src="/assets/img/delete.svg"> <span>Löschen</span></button>
+            <button class="btn-primary" (click)="closeDialog()" title="Schließen"><img src="/assets/img/close.svg"> <span>Schließen</span></button>
+        </div>
+    </div>
+    <div class="edittask-content" *ngIf="viewedit">
+        <form #addTask="ngForm" (ngSubmit)="onSubmit(addTask)" class="edittask-form">
+            <div class="form-element-label" top="Titel">
+                <input type="text" id="title" name="title" #title="ngModel" [(ngModel)]="dataEditTask.title" class="form-element" placeholder="Titel" minlength="3" maxlength="50" required>
+            </div>
+            <div class="form-element-label" top="Beschreibung">
+                <input type="text" id="description" name="description" #description="ngModel" [(ngModel)]="dataEditTask.description" class="form-element" placeholder="Beschreibung" maxlength="500">
+            </div>
+            <div class="task-type-box">
+                <h2>Typ</h2>
+                <div class="form-element-label-row task-color">
+                    <div class="form-element-row">
+                        <input type="radio" id="color-0" name="color" class="form-element" [value]=0 [(ngModel)]="dataEditTask.color" required><label class="color-0" for="color-0">1</label>
+                    </div>
+                    <div class="form-element-row">
+                        <input type="radio" id="color-1" name="color" class="form-element" [value]=1 [(ngModel)]="dataEditTask.color" required><label class="color-1" for="color-1">2</label>
+                    </div>
+                    <div class="form-element-row">
+                        <input type="radio" id="color-2" name="color" class="form-element" [value]=2 [(ngModel)]="dataEditTask.color" required><label class="color-2" for="color-2">3</label>
+                    </div>
+                    <div class="form-element-row">
+                        <input type="radio" id="color-3" name="color" class="form-element" [value]=3 [(ngModel)]="dataEditTask.color" required><label class="color-3" for="color-3">4</label>
+                    </div>
+                    <div class="form-element-row">
+                        <input type="radio" id="color-4" name="color" class="form-element" [value]=4 [(ngModel)]="dataEditTask.color" required><label class="color-4" for="color-4">5</label>
+                    </div>
+                </div>
+            </div>
+            <div class="task-priority-box">
+                <h2>Priorität</h2>
+                <div class="form-element-label task-priority">
+                    <div class="form-element-row" for="priority-low">
+                        <input type="radio" id="priority-low" name="priority" class="form-element" [value]=0 [(ngModel)]="dataEditTask.priority" required><label for="priority-low"><img class="low" src="/assets/img/priority_0.svg"><span>Gering</span></label>
+                    </div>
+                    <div class="form-element-row" for="priority-medium">
+                        <input type="radio" id="priority-medium" name="priority" class="form-element" [value]=1 [(ngModel)]="dataEditTask.priority" required><label for="priority-medium"><img class="medium" src="/assets/img/priority_1.svg"><span>Normal</span></label>
+                    </div>
+                    <div class="form-element-row" for="priority-high">
+                        <input type="radio" id="priority-high" name="priority" class="form-element" [value]=2 [(ngModel)]="dataEditTask.priority" required><label for="priority-high"><img class="high" src="/assets/img/priority_2.svg"><span>Hoch</span></label>
+                    </div>
+                </div>
+            </div>
+            <div class="members-content">
+                <h2>Mitglieder</h2>
+                <div class="form-element-label">
+                    <div class="members-add-btn-box">
+                        <input type="checkbox" name="members" id="members"><label for="members" class="members-add-btn"><img src="/assets/img/memberlist.svg"></label>
+                    </div>
+                    <div class="members-dropdown-box">
+                        <ul>
+                            @for (cont of dbContacts$; track $index) {
+                                <li>
+                                    <input type="checkbox" name="contactlist" id="contact-{{$index}}" (change)="manageMembers( $event, cont.id )" [checked]="isContactIDinMembers(cont.id)">
+                                    <label for="contact-{{$index}}"><span>{{ cont.initials }}</span>{{ cont.name }}</label>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="v-seperator"></div>
+                    <div class="members-list">
+                        <ul>
+                            @for (member of memberList; track $index) {
+                                <li title="{{ getNameFromID(member) }}">
+                                    <div class="member-item"><span>{{ getInitialsFromID(member) }}</span></div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="status-content">
+                <span>Status: </span>
+                @if ( dataEditTask.status > 0 ) {
+                    <div class="btn-img-box" (click)="moveRowLeft()"><img src="/assets/img/left.svg"></div>
+                } @else {
+                    <div class="space"> </div>
+                }
+                <span>{{taskTitles[dataEditTask.status]}}</span>
+                @if ( dataEditTask.status < 3 ) {
+                    <div class="btn-img-box" (click)="moveRowRight()"><img src="/assets/img/right.svg"></div>
+                } @else {
+                    <div class="space"> </div>
+                }
+            </div>
+            <input type="hidden" id="status" name="status" min="0" max="2" [ngModel]="dataEditTask.status" class="form-element">
+            <div class="btn-content">
+                <button type="submit" class="btn-primary" [disabled]="disableForm">Speichern</button>
+                <button class="btn-secondary" (click)="toggleViewEdit()">Abbrechen</button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -5,10 +5,10 @@
     <div class="addtask-content">
         <form #addTask="ngForm" (ngSubmit)="onSubmit(addTask)" class="addtask-form">
             <div class="form-element-label" top="Titel">
-                <input type="text" id="title" name="title" #title="ngModel" [(ngModel)]="dataAddTask.title" class="form-element" placeholder="Titel" required>
+                <input type="text" id="title" name="title" #title="ngModel" [(ngModel)]="dataAddTask.title" class="form-element" placeholder="Titel" minlength="3" maxlength="50" required>
             </div>
             <div class="form-element-label" top="Beschreibung">
-                <input type="text" id="description" name="description" #description="ngModel" [(ngModel)]="dataAddTask.description" class="form-element" placeholder="Beschreibung">
+                <input type="text" id="description" name="description" #description="ngModel" [(ngModel)]="dataAddTask.description" class="form-element" placeholder="Beschreibung" maxlength="500">
             </div>
             <div class="task-type-box">
                 <h2>Typ</h2>
@@ -73,7 +73,22 @@
                 </div>
             </div>
             <div class="status-content">
-                <span>Status: {{taskTitles[dataAddTask.status]}}</span>
+                <span>Status: </span>
+                @if ( dataAddTask.status > 0 ) {
+                    <div class="btn-img-box" (click)="moveRowLeft()">
+                        <img src="/assets/img/left.svg">
+                    </div>
+                } @else {
+                    <div class="space"> </div>
+                }
+                <span>{{taskTitles[dataAddTask.status]}}</span>
+                @if ( dataAddTask.status < 3 ) {
+                    <div class="btn-img-box" (click)="moveRowRight()">
+                        <img src="/assets/img/right.svg">
+                    </div>
+                } @else {
+                    <div class="space"> </div>
+                }
             </div>
             <input type="hidden" id="status" name="status" min="0" max="2" [ngModel]="dataAddTask.status" class="form-element">
             <button type="submit" class="btn-primary" [disabled]="disableForm">Erstellen</button>

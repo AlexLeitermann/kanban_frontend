@@ -7,11 +7,14 @@
         border-radius: 10px 10px 0 0;
         background-color: $background-input;
         padding: 4px 15px;
+        display: flex;
+        flex-direction: column;
         transition: background-color 0.16s ease-in-out;
         cursor: pointer;
         span {
             font-size: 20px;
             font-weight: 700;
+            @include textOverflowSingle();
         }
     }
     .taskitem-content {
@@ -21,6 +24,9 @@
         flex-direction: column;
         gap: 8px;
         cursor: pointer;
+        .ti-content-description {
+            @include textOverflowMulti(10);
+        }
         .ti-content-memberlist {
             ul {
                 display: flex;
@@ -75,17 +81,32 @@
             height: 100%;
             display: flex;
             justify-content: space-between;
-            .btn-img-box {
-                width: 20px;
-                height: 20px;
-                border-radius: 99px;
-                cursor: pointer;
-                &:hover {
-                    background-color: $btn-primary;
-                }
-                img {
+            .ti-footer-left, .ti-footer-right {
+                .btn-img-box {
                     width: 20px;
                     height: 20px;
+                    border-radius: 99px;
+                    cursor: pointer;
+                    &:hover {
+                        background-color: $btn-primary;
+                    }
+                    img {
+                        width: 20px;
+                        height: 20px;
+                    }
+                }
+                .space {
+                    content: '';
+                    width: 20px;
+                    height: 20px;
+                }
+            }
+            .ti-footer-middle {
+                .ti-priority {
+                    img {
+                        width: 20px;
+                        height: 20px;
+                    }
                 }
             }
         }

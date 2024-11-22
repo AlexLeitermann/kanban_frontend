@@ -1,5 +1,5 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { Contact } from '../../models/contact.class';
 import { BackendApiService } from '../../services/backend-api.service';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,8 @@ import { ContactEditComponent } from '../contact-edit/contact-edit.component';
           provide: MatDialogRef,
           useValue: {}
         },
-     ],    templateUrl: './contacts.component.html',
+     ],
+    templateUrl: './contacts.component.html',
     styleUrl: './contacts.component.scss'
 })
 export class ContactsComponent implements OnInit, OnChanges {
@@ -25,7 +26,7 @@ export class ContactsComponent implements OnInit, OnChanges {
     private contactsSub = new Subscription();
     public singleContact: Contact | undefined = undefined;
 
-    public dbContacts$: any;
+    // public dbContacts$: any;
 
     constructor(
         private backend: BackendApiService,
@@ -55,12 +56,13 @@ export class ContactsComponent implements OnInit, OnChanges {
     
     getAllContacts() {
         this.backend.getContactsFromApi().subscribe(async (result) => {
-            this.dbContacts$=result;
+            // this.dbContacts$=result;
+            this.contacts = result;
         });
     }
 
     viewSelectedContact(index:number) {
-        this.singleContact = this.dbContacts$[index];
+        this.singleContact = new Contact(this.contacts[index]);
     }
 
     editContact() {
@@ -79,6 +81,7 @@ export class ContactsComponent implements OnInit, OnChanges {
 
     delContact() {
         if (this.singleContact) {
+            this.backend.removeMemberFromAllTasks(this.singleContact.id);
             this.backend.deleteContact(this.singleContact).subscribe({
                 next: () => {
                     this.singleContact = undefined;
