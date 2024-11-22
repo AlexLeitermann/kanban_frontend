@@ -18,11 +18,11 @@
                         }
                     </div>
                     <div id="form-username-label" class="form-element-label" top="Benutzername (E-Mail)">
-                        <input type="text" name="username" #username="ngModel" [(ngModel)]="dataLogin.username" id="form-username" class="form-element" placeholder="Benutzername (E-Mail)" required>
+                        <input type="text" name="username" #username="ngModel" [(ngModel)]="dataLogin.username" id="form-username" class="form-element" placeholder="Benutzername (E-Mail)" autocomplete="username" required>
                         <span>E-Mail ist erforderlich.</span>
                     </div>
                     <div id="form-password-label" class="form-element-label" top="Passwort">
-                        <input type="password" name="password" id="form-password" [(ngModel)]="dataLogin.password" class="form-element" placeholder="Passwort" required>
+                        <input type="password" name="password" id="form-password" [(ngModel)]="dataLogin.password" class="form-element" placeholder="Passwort" autocomplete="current-password" required>
                         <span>Kein gültiges Passwort.</span>
                     </div>
                     <div class="form-element-btn-box">
