@@ -104,7 +104,6 @@ export class AddtaskComponent implements OnInit {
 
     onSubmit(form: NgForm) {
         if (form.submitted && form.valid) { 
-            console.log('AddTask - onSubmit - isValid > OK');
             this.saveForm(); 
         }
     }
@@ -124,7 +123,6 @@ export class AddtaskComponent implements OnInit {
         this.dataTask.members = JSON.stringify(this.members);
         this.dataTask.author.id = this.backend.currentUser.id;
         this.backend.createTask(this.dataTask).subscribe((res: any) => {
-            console.log('C.addTask - saveTask:', res);
             this.newRoute.navigate([`/home/board`])
         });
     }

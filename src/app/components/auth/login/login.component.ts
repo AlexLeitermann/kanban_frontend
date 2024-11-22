@@ -35,13 +35,6 @@ export class LoginComponent {
     async login() {
         await this.backend.loginOnApi(this.dataLogin.username, this.dataLogin.password)
         .then((res) => {
-            // console.log('login-after', res);
-            // this.backend.token = res.token;
-            // localStorage.setItem('link-token', res.token);
-            // this.backend.initData();
-            // this.backend.currentUser.id = res.userid;
-            // this.backend.currentUser.email = res.email;
-            // this.backend.getCurrentUserFromID(res.userid);
             this.router.navigateByUrl('/home');
         })
         .catch((err) => {

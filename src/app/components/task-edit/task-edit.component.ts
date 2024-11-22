@@ -110,7 +110,6 @@ export class TaskEditComponent {
                 }
             });
         });
-        // this.isLoaded = true;
     }
 
     manageMembers(event: any, userID: number) {
@@ -153,8 +152,7 @@ export class TaskEditComponent {
         this.dataTask.status = this.dataEditTask.status;
         this.dataTask.priority = this.dataEditTask.priority;
         this.dataTask.members = JSON.stringify(this.memberList);
-        this.backend.saveTask(this.dataTask).subscribe((res) => {
-            // console.log('c.taskEdit - saveTask:', res);
+        this.backend.saveTask(this.dataTask).subscribe(() => {
             this.closeDialog();
         });
     }

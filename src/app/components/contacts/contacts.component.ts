@@ -56,7 +56,6 @@ export class ContactsComponent implements OnInit, OnChanges {
     
     getAllContacts() {
         this.backend.getContactsFromApi().subscribe(async (result) => {
-            // this.dbContacts$=result;
             this.contacts = result;
         });
     }

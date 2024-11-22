@@ -46,7 +46,6 @@ export class AddcontactComponent {
         this.dataContact.email = this.dataAddContact.email;
         this.dataContact.phone = this.dataAddContact.phone;
         let res = this.backend.createContact(this.dataContact);
-        console.log('saveAddContact:', res);
         this.closeDialog();
     }
 

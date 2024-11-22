@@ -96,7 +96,6 @@ export class TaskItemComponent implements OnInit {
             this.dialogTaskEditRef.afterClosed().subscribe((result) => {
                 this.backend.getTasksFromApi().subscribe(async (result) => {
                     this.board.tasks=result;
-                    // this.board.getAllTasks();
                     this.getMemberlist();
                 });
             });
