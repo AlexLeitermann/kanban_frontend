@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Task } from '../../models/task.class';
 import { Contact } from '../../models/contact.class';
@@ -23,6 +23,7 @@ export class TaskEditComponent {
 
     public memberList: number[] = [];
     public members:Member[] = [];
+    public membersDropDown = false;
     public dataTask: Task = new Task;
     public dataEditTask: Task = new Task;
     public disableForm: boolean = false;
@@ -129,6 +130,10 @@ export class TaskEditComponent {
         this.viewedit = !this.viewedit;
     }
 
+    toggleDropDown() {
+        this.membersDropDown = !this.membersDropDown;
+    }
+
     closeDialog() {
         this.dialogRef.close()
     }
@@ -174,6 +179,16 @@ export class TaskEditComponent {
     moveRowRight() {
         if (this.dataEditTask.status < 3) {
             this.dataEditTask.status++;
+        }
+    }
+
+    @HostListener('document:click', ['$event'])
+    onDocumentClick(event: MouseEvent) {
+        const clickedElement = event.target as HTMLElement;
+        const isDropDownClick = clickedElement.closest('.members-add-btn') !== null;
+        const isMemberCheckboxClick = clickedElement.closest('.memberCheckbox') !== null;
+        if (!(isDropDownClick || isMemberCheckboxClick) && this.membersDropDown) {
+            this.membersDropDown = false;
         }
     }
 

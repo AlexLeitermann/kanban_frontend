@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Contact } from '../../models/contact.class';
 import { Subscription } from 'rxjs';
 import { BackendApiService } from '../../services/backend-api.service';
@@ -20,6 +20,7 @@ export class AddtaskComponent implements OnInit {
     private contactsSub = new Subscription();
 
     public members: number[] = [];
+    public membersDropDown = false;
     public dataTask: Task = new Task;
     public dataAddTask: Task = new Task;
     public disableForm: boolean = false;
@@ -89,6 +90,10 @@ export class AddtaskComponent implements OnInit {
         return "--";
     }
 
+    toggleDropDown() {
+        this.membersDropDown = !this.membersDropDown;
+    }
+
     manageMembers(event: any, userID: number) {
         if (event.target.checked) {
             if (!this.members.includes(userID)) {
@@ -139,5 +144,14 @@ export class AddtaskComponent implements OnInit {
         }
     }
 
+    @HostListener('document:click', ['$event'])
+    onDocumentClick(event: MouseEvent) {
+        const clickedElement = event.target as HTMLElement;
+        const isDropDownClick = clickedElement.closest('.members-add-btn') !== null;
+        const isMemberCheckboxClick = clickedElement.closest('.memberCheckbox') !== null;
+        if (!(isDropDownClick || isMemberCheckboxClick) && this.membersDropDown) {
+            this.membersDropDown = false;
+        }
+    }
 
 }

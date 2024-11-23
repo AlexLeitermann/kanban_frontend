@@ -92,12 +92,12 @@
                 <h2>Mitglieder</h2>
                 <div class="form-element-label">
                     <div class="members-add-btn-box">
-                        <input type="checkbox" name="members" id="members"><label for="members" class="members-add-btn"><img src="/assets/img/memberlist.svg"></label>
+                        <div class="members-add-btn" [class.checked]="membersDropDown" (click)="toggleDropDown()"><img src="/assets/img/memberlist.svg"></div>
                     </div>
-                    <div class="members-dropdown-box">
+                    <div class="members-dropdown-box" [class.checked]="membersDropDown">
                         <ul>
                             @for (cont of dbContacts$; track $index) {
-                                <li>
+                                <li class="memberCheckbox">
                                     <input type="checkbox" name="contactlist" id="contact-{{$index}}" (change)="manageMembers( $event, cont.id )" [checked]="isContactIDinMembers(cont.id)">
                                     <label for="contact-{{$index}}"><span>{{ cont.initials }}</span>{{ cont.name }}</label>
                                 </li>

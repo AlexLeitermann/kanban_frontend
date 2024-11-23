@@ -177,7 +177,6 @@
                         }
                         &:has(input:checked) {
                             label {
-                                // border: 2px solid $main-color;
                                 img.high {
                                     content: url('/assets/img/priority_2_active.svg');
                                 }
@@ -222,7 +221,6 @@
                             padding: 4px 10px;
                             border: 1px solid $background-frame;
                             border-radius: 8px;
-                            // box-shadow: 2px 2px 4px $text-color inset, -2px -2px 4px #000 inset;
                             color: #000;
                             font-weight: 700;
                             display: flex;
@@ -253,7 +251,6 @@
                         flex-direction: row;
                         gap: 30px;
                         .form-element-row {
-                            // padding: 10px 20px;
                             border: 1px solid #808080;
                             border-radius: 8px;
                             label {
@@ -277,10 +274,6 @@
                         gap: 5px;
                         .members-add-btn-box {
                             display: flex;
-                            #members {
-                                width: 0;
-                                opacity: 0;
-                            }
                             .members-add-btn {
                                 padding: 4px;
                                 min-width: 40px;
@@ -305,7 +298,7 @@
                                 }
                             }
                         }
-                        .members-dropdown-box:not(&:has(#members:checked)) {
+                        .members-dropdown-box:not(&.checked) {
                             z-index: 1;
                             position: absolute;
                             padding: 5px;
@@ -376,31 +369,29 @@
                                 }
                             }
                         }
-                        &:has(#members:checked) {
-                            .members-add-btn-box {
-                                .members-add-btn {
-                                    background-color: $main-color-900;
-                                    &:hover {
-                                        background-color: $main-color;
-                                    }
+                        .members-add-btn-box.checked {
+                            .members-add-btn {
+                                background-color: $main-color-900;
+                                &:hover {
+                                    background-color: $main-color;
                                 }
                             }
-                            .members-dropdown-box {
-                                height: fit-content;
-                                opacity: 1;
-                                max-height: min(200px, calc(100% + 144px));
-                                transition: max-height 0.2s ease-out 0.25s, opacity 0.2s ease-out;
-                                pointer-events: all;
-                                @media screen and (max-width: 850px) {
-                                    max-height: min(200px, calc(100% + 138px));
-                                }
-                                @media screen and (max-width: 768px) {
-                                    max-height: min(200px, calc(100% + 120px));
-                                }
-                                @media screen and (max-width: 500px) {
-                                    max-height: min(200px, calc(100% + 80px));
-                                    max-width: calc(100vw - 155px);
-                                }
+                        }
+                        .members-dropdown-box.checked {
+                            height: fit-content;
+                            opacity: 1;
+                            max-height: min(200px, calc(100% + 144px));
+                            transition: max-height 0.2s ease-out 0.25s, opacity 0.2s ease-out;
+                            pointer-events: all;
+                            @media screen and (max-width: 850px) {
+                                max-height: min(200px, calc(100% + 138px));
+                            }
+                            @media screen and (max-width: 768px) {
+                                max-height: min(200px, calc(100% + 120px));
+                            }
+                            @media screen and (max-width: 500px) {
+                                max-height: min(200px, calc(100% + 80px));
+                                max-width: calc(100vw - 155px);
                             }
                         }
                         .v-seperator {
@@ -416,7 +407,6 @@
                             width: calc(100% - 50px);
                             ul {
                                 display: flex;
-                                // gap: 0px;
                                 overflow-x: auto;
                                 @include scrollbar();
                                 li {
@@ -538,9 +528,6 @@
                             font-size: 20px;
                         }
                     }
-                    // .members-content {
-
-                    // }
                     .status-content {
                         span {
                             font-size: 20px;
@@ -595,8 +582,6 @@
                         }
                     }
                     .task-type-box {
-                        // flex-direction: column;
-                        // align-items: flex-start;
                         .form-element-label-row {
                             label {
                                 padding: 0px 6px;
@@ -610,8 +595,6 @@
                         }
                     }
                     .task-priority-box {
-                        // flex-direction: row;
-                        // align-items: flex-start;
                         .form-element-label.task-priority {
                             gap: 10px;
                             .form-element-row {
