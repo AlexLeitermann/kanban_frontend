@@ -26,8 +26,6 @@ export class ContactsComponent implements OnInit, OnChanges {
     private contactsSub = new Subscription();
     public singleContact: Contact | undefined = undefined;
 
-    // public dbContacts$: any;
-
     constructor(
         private backend: BackendApiService,
         public dialogContactEditRef: MatDialogRef<ContactEditComponent>,
@@ -55,7 +53,7 @@ export class ContactsComponent implements OnInit, OnChanges {
     }
     
     getAllContacts() {
-        this.backend.getContactsFromApi().subscribe(async (result) => {
+        this.backend.getContactsFromApi().subscribe((result) => {
             this.contacts = result;
         });
     }
@@ -78,9 +76,9 @@ export class ContactsComponent implements OnInit, OnChanges {
         }
     }
 
-    delContact() {
+    async delContact() {
         if (this.singleContact) {
-            this.backend.removeMemberFromAllTasks(this.singleContact.id);
+            await this.backend.removeMemberFromAllTasks(this.singleContact.id);
             this.backend.deleteContact(this.singleContact).subscribe({
                 next: () => {
                     this.singleContact = undefined;

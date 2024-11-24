@@ -39,7 +39,7 @@ export class TaskItemComponent implements OnInit {
         this.getMemberlist();
     }
     
-    getMemberlist() {
+    async getMemberlist() {
         if (this.taskItem.members == '') {
             this.taskItem.members = '[]';
         }
@@ -47,9 +47,11 @@ export class TaskItemComponent implements OnInit {
         this.members = [];
         strMemberlist.forEach(async (memberID: number) => {
             this.backend.getContactFromID(memberID)
-            .then(res => {
+            .then(async res => {
                 if (res !== false) {
                     this.members.push(new Member({'id': memberID, 'member': res}))
+                } else {
+                    await this.backend.removeMemberFromAllTasks(memberID);
                 }
             });
         });

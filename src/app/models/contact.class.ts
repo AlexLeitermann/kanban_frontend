@@ -1,16 +1,24 @@
 export class Contact {
-    id!: number;
-    name!: string;
-    initials!: string;
-    email!: string;
-    phone!: string;
+    id: number;
+    name: string;
+    initials: string;
+    email: string;
+    phone: string;
 
     constructor (obj?: any) {
-        this.id = obj ? obj.id : 0;
-        this.name = obj ? obj.name : '';
-        this.initials = obj ? obj.initials : '';
-        this.email = obj ? obj.email : '';
-        this.phone = obj ? obj.phone : '';
+        if (obj) {
+            this.id = obj.id ? obj.id : 0;
+            this.name = obj.name ? obj.name : '';
+            this.initials = obj.initials ? obj.initials : '';
+            this.email = obj.email ? obj.email : '';
+            this.phone = obj.phone ? obj.phone : '';
+        } else {
+            this.id = 0;
+            this.name = '';
+            this.initials = '';
+            this.email = '';
+            this.phone = '';
+        }
     }
 
 }

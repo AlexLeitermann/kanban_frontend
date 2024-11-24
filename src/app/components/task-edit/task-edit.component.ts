@@ -97,7 +97,7 @@ export class TaskEditComponent {
         return false;
     }
 
-    getMemberlist() {
+    async getMemberlist() {
         if (this.dataEditTask.members == '') {
             this.dataEditTask.members = '[]';
         }
@@ -105,9 +105,12 @@ export class TaskEditComponent {
         const strMemberlist = JSON.parse(this.dataEditTask.members);
         strMemberlist.forEach((memberID: any) => {
             this.backend.getContactFromID(memberID)
-            .then(res => {
+            .then(async res => {
                 if (res !== false) {
                     this.members.push(new Member({'id': memberID, 'member': res}))
+                } else {
+                    this.manageMembers({target: {checked: false}},memberID);
+                    await this.backend.removeMemberFromAllTasks(memberID);
                 }
             });
         });
@@ -158,13 +161,13 @@ export class TaskEditComponent {
         this.dataTask.priority = this.dataEditTask.priority;
         this.dataTask.members = JSON.stringify(this.memberList);
         this.backend.saveTask(this.dataTask).subscribe(() => {
+            this.backend.getAllTasks();
             this.closeDialog();
         });
     }
     
     deleteTask() {
         this.backend.deleteTask(this.dataTask).subscribe((res) => {
-            console.log('c.taskEdit - deleteTask:', res);
             this.closeDialog();
         });
         

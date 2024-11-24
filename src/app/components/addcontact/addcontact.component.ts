@@ -29,7 +29,6 @@ export class AddcontactComponent {
 
     onSubmit(form: NgForm) {
         if (form.submitted && form.valid) { 
-            // console.log('AddContact - onSubmit');
             this.saveForm(); 
         }
     }
@@ -45,12 +44,11 @@ export class AddcontactComponent {
         this.dataContact.initials = this.initialsFrom(this.dataAddContact.name);
         this.dataContact.email = this.dataAddContact.email;
         this.dataContact.phone = this.dataAddContact.phone;
-        let res = this.backend.createContact(this.dataContact);
+        this.backend.createContact(this.dataContact);
         this.closeDialog();
     }
 
     initialsFrom(name: string):string {
-        console.log('initialsFrom:', name);
         if (name.toLowerCase() == "guest" || name.toLowerCase() == "gast") {
             return "G";
         } else {

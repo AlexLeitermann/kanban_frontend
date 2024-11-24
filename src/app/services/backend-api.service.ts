@@ -214,14 +214,6 @@ export class BackendApiService {
         }
     }
 
-    async setCurrentUser(userIndex: number) {
-        this.currentUser.id = this.users[userIndex].id;
-        this.currentUser.email = this.users[userIndex].email;
-        this.currentUser.first_name = this.users[userIndex].first_name;
-        this.currentUser.last_name = this.users[userIndex].last_name;
-        this.currentUser.username = this.users[userIndex].username;
-    }
-
     async getContactFromID(getID:any):Promise<any> {
         this.getAllContacts();
         const contactIndex = this.contacts.findIndex(c => {
@@ -231,6 +223,14 @@ export class BackendApiService {
             return this.contacts[contactIndex];
         }
         return false;
+    }
+    
+    async setCurrentUser(userIndex: number) {
+        this.currentUser.id = this.users[userIndex].id;
+        this.currentUser.email = this.users[userIndex].email;
+        this.currentUser.first_name = this.users[userIndex].first_name;
+        this.currentUser.last_name = this.users[userIndex].last_name;
+        this.currentUser.username = this.users[userIndex].username;
     }
 
 
@@ -252,7 +252,6 @@ export class BackendApiService {
 
     createContact(contactItem:Contact) {
         this.postContactToApi(contactItem).subscribe((status)=>{
-            // console.log('backend - createContact', status);
             return status;
         });
     }
@@ -277,18 +276,17 @@ export class BackendApiService {
     // ----- Weitere Funktionen -----
     // #######################################################################################################
 
-    removeMemberFromAllTasks(memberID: number): void {
-        this.tasks.forEach((task) => {
+    public async removeMemberFromAllTasks(memberID: number): Promise<void> {
+        const updateTasksPromises = this.tasks.map(async (task) => {
             const members = JSON.parse(task.members || '[]');
             const updatedMembers = members.filter((id: number) => id !== memberID);
-
             if (members.length !== updatedMembers.length) {
                 task.members = JSON.stringify(updatedMembers);
-                this.saveTask(task).subscribe(() => {
-                    console.log(`Mitglied mit ID ${memberID} wurde aus Task ${task.id} entfernt.`);
-                });
+                await lastValueFrom(this.saveTask(task));
             }
         });
+        await Promise.all(updateTasksPromises);
+        this.initData();
     }
 
 }

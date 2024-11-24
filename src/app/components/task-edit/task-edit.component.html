@@ -133,7 +133,7 @@
             <input type="hidden" id="status" name="status" min="0" max="2" [ngModel]="dataEditTask.status" class="form-element">
             <div class="btn-content">
                 <button type="submit" class="btn-primary" [disabled]="disableForm">Speichern</button>
-                <button class="btn-secondary" (click)="toggleViewEdit()">Abbrechen</button>
+                <button type="button" class="btn-secondary" (click)="toggleViewEdit()">Abbrechen</button>
             </div>
         </form>
     </div>

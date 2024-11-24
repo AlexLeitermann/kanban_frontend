@@ -1,7 +1,7 @@
 <div class="navmenu-content">
     <ul>
-        <li [class.active]="route.url=='/home/board'"><a routerLink="board" (click)="getRoute('/home/board')"><img src="/assets/img/nav_board.svg"><span>Tafel</span></a></li>
-        <li [class.active]="route.url=='/home/addtask'"><a routerLink="addtask" (click)="getRoute('/home/addtask')"><img src="/assets/img/nav_addtask.svg"><span>neue Aufgabe</span></a></li>
-        <li [class.active]="route.url=='/home/contacts'"><a routerLink="contacts" (click)="getRoute('/home/contacts')"><img src="/assets/img/nav_contacts.svg"><span>Kontakte</span></a></li>
+        <li [class.active]="route.url=='/home/board'"><a (click)="getRoute('/home/board')"><img src="/assets/img/nav_board.svg"><span>Tafel</span></a></li>
+        <li [class.active]="route.url=='/home/addtask'"><a (click)="getRoute('/home/addtask')"><img src="/assets/img/nav_addtask.svg"><span>neue Aufgabe</span></a></li>
+        <li [class.active]="route.url=='/home/contacts'"><a (click)="getRoute('/home/contacts')"><img src="/assets/img/nav_contacts.svg"><span>Kontakte</span></a></li>
     </ul>
 </div>
