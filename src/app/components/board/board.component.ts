@@ -31,12 +31,10 @@ export class BoardComponent implements OnInit {
         this.tasksSub.add(
             this.backend.getTasksFromApi().subscribe((tasks) => { this.tasks = tasks })
         );
-        console.log('OnInit - Board');
         
     }
     
     ngOnDestroy() {
-        console.log('OnDestroy - Board');
         this.tasksSub.unsubscribe();
     }
 
