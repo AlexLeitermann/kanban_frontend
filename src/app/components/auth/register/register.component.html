@@ -35,10 +35,13 @@
                         </div>
                     </div>
                     <div class="form-element-btn-box">
-                        <button type="submit" class="btn-primary">Registrieren</button>
-                        <button type="button" class="btn-secondary" (click)="backToLogin()"><img src="/assets/img/left.svg"><span>Anmelden</span></button>
+                        <button type="submit" class="btn-primary" [disabled]="disableForm">Registrieren</button>
+                        <button type="button" class="btn-secondary" (click)="backToLogin()" [disabled]="disableForm"><img src="/assets/img/left.svg"><span>Anmelden</span></button>
                     </div>
                 </form>
+                <div class="msg-box" [class.view]="registerSuccess">
+                    <span>Registrierung erfolgreich</span>
+                </div>
             </div>
         </div>
         <div class="content-right"></div>

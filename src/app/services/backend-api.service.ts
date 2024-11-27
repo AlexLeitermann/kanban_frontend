@@ -28,18 +28,29 @@ export class BackendApiService {
     }
 
     public initData(): void {
+        this.initTasks();
+        this.initContacts();
+        this.initUsers();
+    }
+
+    initTasks() {
         this.getTasksFromApi().subscribe((items) => { 
             this.tasks = items; 
             this.tasksSubject.next(this.tasks);
         });
+    }
+
+    initContacts() {
         this.getContactsFromApi().subscribe((items) => { 
             this.contacts = items; 
             this.contactSubject.next(this.contacts);
         });
+    }
+
+    initUsers() {
         this.getUsersFromApi().subscribe((items) => { 
             this.users = items; 
         });
-
     }
 
     getHeaders(): any {
@@ -286,7 +297,7 @@ export class BackendApiService {
             }
         });
         await Promise.all(updateTasksPromises);
-        this.initData();
+        this.initTasks();
     }
 
 }

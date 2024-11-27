@@ -44,6 +44,7 @@ export class AddcontactComponent {
         this.dataContact.initials = this.initialsFrom(this.dataAddContact.name);
         this.dataContact.email = this.dataAddContact.email;
         this.dataContact.phone = this.dataAddContact.phone;
+        this.dataContact.user.id = this.backend.currentUser.id;
         this.backend.createContact(this.dataContact);
         this.closeDialog();
     }

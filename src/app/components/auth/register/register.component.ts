@@ -13,6 +13,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RegisterComponent {
     public registerData: any = [];
+    public registerSuccess = false;
+    disableForm: boolean = false;
 
     constructor(
         private router: Router, 
@@ -24,6 +26,7 @@ export class RegisterComponent {
     }
 
     onSubmit(form: NgForm) {
+        this.disableForm = true;
         if (form.submitted && form.valid) { 
             this.register(); 
         }
@@ -49,7 +52,16 @@ export class RegisterComponent {
             'confirmpassword': this.registerData.confirmpassword
         };
         this.http.post<any>(url, sendData, this.getHeaders()).subscribe(()=>{
-            this.backToLogin();
+            this.viewMsg();
         });
+    }
+
+    viewMsg() {
+        this.registerSuccess = true;
+        setTimeout(() => {
+            this.disableForm = false;
+            this.registerSuccess = false;
+            this.backToLogin();
+        }, 2500)
     }
 }

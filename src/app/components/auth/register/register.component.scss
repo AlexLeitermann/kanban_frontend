@@ -110,7 +110,32 @@
                                 }
                             }
                         }
-                                        }
+                    }
+                    .msg-box {
+                        z-index: 99;
+                        position: fixed;
+                        left: 0;
+                        bottom: -80px;
+                        width: 100vw;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        pointer-events: none;
+                        opacity: 0;
+                        span {
+                            padding: 20px;
+                            background-color: $color-green;
+                            border-radius: 10px;
+                            font-size: 24px;
+                            font-weight: 700;
+                            color: #000;
+                        }
+                        &.view {
+                            opacity: 1;
+                            bottom: 20vh;
+                            transition: opacity 0.2s ease, bottom 0.2s ease;
+                        }
+                    }
                 }
             }
             .content-right {
@@ -169,6 +194,16 @@
                                 .btn-secondary {
                                     gap: 5px;
                                 }
+                            }
+                        }
+                        .msg-box {
+                            span {
+                                padding: 12px;
+                                background-color: $color-green;
+                                border-radius: 10px;
+                                font-size: 18px;
+                                font-weight: 700;
+                                color: #000;
                             }
                         }
                     }

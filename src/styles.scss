@@ -227,7 +227,7 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus, 
 input:-webkit-autofill:active {
     background-color: $background-input !important;
-    -webkit-box-shadow: 0 0 0 3px $background-frame inset, 0 0 0 5px $color-yellow inset, 0 0 0 45px $background-frame inset !important;
+    -webkit-box-shadow: 0 0 0 3px $background-frame inset, 0 0 0 4px #888 inset, 0 0 0 45px $background-frame inset !important;
     -webkit-text-fill-color: $text-color !important;
     -webkit-text-stroke-color: $text-color !important;
     color: #fff !important;
